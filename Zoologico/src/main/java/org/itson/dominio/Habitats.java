@@ -6,6 +6,7 @@ package org.itson.dominio;
 
 import java.util.List;
 import java.util.Objects;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 /**
@@ -32,6 +33,16 @@ public class Habitats {
         this.clima = clima;
         this.tipoVegetacion = tipoVegetacion;
         this.continente = continente;
+    }
+
+    /**
+     * Constructor que inicializa los atributos de la clase con un documento
+     * @param document Documento con datos de un habitat
+     */
+    public Habitats(Document document) {
+        this.clima = document.getString("clima");
+        this.tipoVegetacion = document.getString("tipoVegetacion");
+        this.continente = (List<String>) document.get("continentes");
     }
 
     public ObjectId getId() {

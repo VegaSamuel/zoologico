@@ -5,6 +5,7 @@
 package org.itson.dominio;
 
 import java.util.Objects;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 /**
@@ -37,6 +38,18 @@ public class Especies {
         this.cuidador = cuidador;
         this.habitat = habitat;
         this.zona = zona;
+    }
+
+    /**
+     * Constructor que inicializa los atributos de la clase con un documento
+     * @param document Documento con datos de una especie
+     */
+    public Especies(Document document) {
+        this.nombre = document.getString("nombre");
+        this.nombreCientifico = document.getString("nombre cientifico");
+        this.cuidador = new Cuidadores((Document) document.get("cuidador"));
+        this.habitat = new Habitats((Document) document.get("habitat"));
+        this.zona = new Zonas((Document) document.get("zona"));
     }
 
     public ObjectId getId() {

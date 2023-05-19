@@ -6,6 +6,7 @@ package org.itson.dominio;
 
 import java.util.List;
 import java.util.Objects;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 /**
@@ -34,6 +35,16 @@ public class Zonas {
         this.especies = especies;
     }
 
+    /**
+     * Constructor que inicializa los atributos de la clase con un documento
+     * @param document Documentos con datos de una zona
+     */
+    public Zonas(Document document) {
+        this.nombre = document.getString("nombre");
+        this.extension = document.getDouble("extension");
+        this.especies = (List<Especies>) document.get("especies");
+    }
+    
     public ObjectId getId() {
         return id;
     }

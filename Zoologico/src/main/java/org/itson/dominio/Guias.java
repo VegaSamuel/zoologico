@@ -7,6 +7,7 @@ package org.itson.dominio;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 /**
@@ -39,6 +40,18 @@ public class Guias {
         this.telefono = telefono;
         this.fechaIngreso = fechaIngreso;
         this.itinerarios = itinerarios;
+    }
+
+    /**
+     * Constructor que inicializa los atributos de la clase con un documento
+     * @param document Documento con datos de un guía
+     */
+    public Guias(Document document) {
+        this.nombre = document.getString("nombre");
+        this.direccion = new Direccion((Document) document.get("direccion"));
+        this.telefono = document.getString("telefono");
+        this.fechaIngreso = document.getDate("fechaIngreso");
+        this.itinerarios = (List<Itinerarios>) document.get("itinerarios");
     }
 
     /**

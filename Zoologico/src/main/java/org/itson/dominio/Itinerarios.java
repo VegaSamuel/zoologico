@@ -6,6 +6,7 @@ package org.itson.dominio;
 
 import java.util.List;
 import java.util.Objects;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 /**
@@ -41,6 +42,15 @@ public class Itinerarios {
         this.numEspeciesDistintas = numEspeciesDistintas;
         this.guia = guia;
         this.zonas = zonas;
+    }
+
+    public Itinerarios(Document document) {
+        this.duracion = document.getInteger("duracion");
+        this.longitud = document.getDouble("longitud");
+        this.maxVisitanteAutorizados = document.getInteger("maxVisitantesAutorizados");
+        this.numEspeciesDistintas = document.getInteger("numEspeciesDistintas");
+        this.guia = new Guias((Document) document.get("guia"));
+        this.zonas = (List<Zonas>) document.get("zonas");
     }
 
     /**

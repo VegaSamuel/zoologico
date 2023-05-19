@@ -24,4 +24,19 @@ public class ConstantesEtiquetas {
     public final String CUIDADOR = "cuidador";
     public final String HABITAT = "habitat";
     public final String ZONA = "zona";
+    //Guias
+    public final String ITINERARIOS = "itinerarios";
+    //Habitats
+    public final String CLIMA = "clima";
+    public final String VEGATACION = "tipoVegetacion";
+    public final String CONTINENTES = "continentes";
+    //Itinerarios
+    public final String DURACION = "duracion";
+    public final String LONGITUD = "longitud";
+    public final String VISITANTES = "maxVisitantesAutorizados";
+    public final String NESPECIES = "numEspeciesDistintas";
+    public final String GUIA = "guia";
+    public final String ZONAS = "zonas";
+    //Zona
+    public final String EXTENSION = "extension";
 }
