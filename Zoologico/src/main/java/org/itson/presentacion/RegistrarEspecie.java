@@ -36,7 +36,9 @@ public class RegistrarEspecie extends javax.swing.JDialog {
         
         initComponents();
         
+        respuesta.append(ConstantesGUI.CANCELAR);
         centraCuadroDialogo(parent);
+        setVisible(true);
     }
     
     /**
@@ -62,21 +64,123 @@ public class RegistrarEspecie extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblNombre = new javax.swing.JLabel();
+        lblNombreCientifico = new javax.swing.JLabel();
+        lblHabitat = new javax.swing.JLabel();
+        lblCuidador = new javax.swing.JLabel();
+        lblZona = new javax.swing.JLabel();
+        txtNombreCientifico = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        cbxCuidador = new javax.swing.JComboBox<>();
+        cbxHabitat = new javax.swing.JComboBox<>();
+        cbxZona = new javax.swing.JComboBox<>();
+        btnRegistrar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        lblNombre.setText("Nombre");
+
+        lblNombreCientifico.setText("Nombre Científico");
+
+        lblHabitat.setText("Hábitat");
+
+        lblCuidador.setText("Cuidador");
+
+        lblZona.setText("Zona");
+
+        cbxCuidador.setModel(listaCuidadores);
+
+        cbxHabitat.setModel(listaHabitats);
+
+        cbxZona.setModel(listaZonas);
+
+        btnRegistrar.setText("Registrar");
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNombreCientifico)
+                            .addComponent(lblNombre)
+                            .addComponent(lblCuidador)
+                            .addComponent(lblHabitat)
+                            .addComponent(lblZona, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNombreCientifico)
+                            .addComponent(txtNombre)
+                            .addComponent(cbxCuidador, 0, 108, Short.MAX_VALUE)
+                            .addComponent(cbxHabitat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxZona, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRegistrar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreCientifico)
+                    .addComponent(txtNombreCientifico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCuidador)
+                    .addComponent(cbxCuidador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHabitat)
+                    .addComponent(cbxHabitat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblZona)
+                    .addComponent(cbxZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistrar)
+                    .addComponent(btnCancelar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<Cuidadores> cbxCuidador;
+    private javax.swing.JComboBox<Habitats> cbxHabitat;
+    private javax.swing.JComboBox<Zonas> cbxZona;
+    private javax.swing.JLabel lblCuidador;
+    private javax.swing.JLabel lblHabitat;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNombreCientifico;
+    private javax.swing.JLabel lblZona;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreCientifico;
     // End of variables declaration//GEN-END:variables
 }

@@ -191,12 +191,6 @@ public class RegistrarHabitat extends javax.swing.JDialog {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
-        
-        if(operacion == ConstantesGUI.DESPLEGAR) {
-            listaClimas.removeAllElements();
-            listaVegetacion.removeAllElements();
-            listaContinentes.removeAllElements();
-        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed

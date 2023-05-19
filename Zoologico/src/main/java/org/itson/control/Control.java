@@ -243,10 +243,12 @@ public class Control {
         DefaultComboBoxModel<String> listaVegetacion;
         DefaultComboBoxModel<String> listaContinentes;
         
-        String nombre = JOptionPane.showInputDialog(frame, "Nombre del hábitat: ", "Registrar hábitat", JOptionPane.QUESTION_MESSAGE).toLowerCase();
+        String nombre = JOptionPane.showInputDialog(frame, "Nombre del hábitat: ", "Registrar hábitat", JOptionPane.QUESTION_MESSAGE);
         
         if(nombre == null)
             return false;
+        
+        nombre = nombre.toLowerCase();
         
         Document d = db.getCollection("Habitats").find(Filters.eq(ce.NOMBRE, nombre)).first();
         
@@ -292,10 +294,12 @@ public class Control {
         DefaultComboBoxModel<Habitats> listaHabitats;
         DefaultComboBoxModel<Zonas> listaZonas;
         
-        String nombre = JOptionPane.showInputDialog(frame, "Nombre de la especie: ", "Registrar especie", JOptionPane.QUESTION_MESSAGE).toLowerCase();
+        String nombre = JOptionPane.showInputDialog(frame, "Nombre de la especie: ", "Registrar especie", JOptionPane.QUESTION_MESSAGE);
         
         if(nombre == null)
             return false;
+        
+        nombre = nombre.toLowerCase();
         
         Document d = db.getCollection("Especies").find(Filters.eq("nombre", nombre)).first();
         
