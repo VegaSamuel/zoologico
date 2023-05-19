@@ -17,7 +17,7 @@ public class Cuidadores {
     private ObjectId id;
     private String nombre;
     private Direccion direccion;
-    private Integer telefono;
+    private String telefono;
     private Date fechaIngreso;
     private List<Especies> especies;
 
@@ -31,7 +31,7 @@ public class Cuidadores {
      * @param fechaIngreso Fecha de ingreso del cuidador
      * @param especies Especies que el cuidador cuida
      */
-    public Cuidadores(String nombre, Direccion direccion, Integer telefono, Date fechaIngreso, List<Especies> especies) {
+    public Cuidadores(String nombre, Direccion direccion, String telefono, Date fechaIngreso, List<Especies> especies) {
         this.id = new ObjectId();
         this.nombre = nombre;
         this.direccion = direccion;
@@ -39,7 +39,7 @@ public class Cuidadores {
         this.fechaIngreso = fechaIngreso;
         this.especies = especies;
     }
-
+    
     public ObjectId getId() {
         return id;
     }
@@ -64,11 +64,11 @@ public class Cuidadores {
         this.direccion = direccion;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -83,9 +83,13 @@ public class Cuidadores {
     public List<Especies> getEspecies() {
         return especies;
     }
-
+    
     public void setEspecies(List<Especies> especies) {
         this.especies = especies;
+    }
+
+    public void addEspecies(Especies especie) {
+        this.especies.add(especie);
     }
 
     /**

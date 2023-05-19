@@ -17,7 +17,7 @@ public class Guias {
     private ObjectId id;
     private String nombre;
     private Direccion direccion;
-    private Integer telefono;
+    private String telefono;
     private Date fechaIngreso;
     private List<Itinerarios> itinerarios;
 
@@ -32,7 +32,7 @@ public class Guias {
      * @param fechaIngreso Fecha en que ingreso el guía
      * @param itinerarios Itinerarios que ha realizado el guía
      */
-    public Guias(String nombre, Direccion direccion, Integer telefono, Date fechaIngreso, List<Itinerarios> itinerarios) {
+    public Guias(String nombre, Direccion direccion, String telefono, Date fechaIngreso, List<Itinerarios> itinerarios) {
         this.id = new ObjectId();
         this.nombre = nombre;
         this.direccion = direccion;
@@ -69,11 +69,11 @@ public class Guias {
         this.direccion = direccion;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

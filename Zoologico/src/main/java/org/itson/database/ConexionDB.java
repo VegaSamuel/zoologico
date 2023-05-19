@@ -16,9 +16,7 @@ public class ConexionDB {
     private static MongoDatabase conexionDB;
     
     //Constructor por omisión
-    private ConexionDB() {
-        
-    }
+    private ConexionDB() {}
     
     /**
      * Regresa una conexión a la base de datos
