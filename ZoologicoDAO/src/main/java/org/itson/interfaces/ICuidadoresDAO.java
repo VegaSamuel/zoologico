@@ -4,6 +4,7 @@
  */
 package org.itson.interfaces;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.itson.dominio.Cuidadores;
 
@@ -31,4 +32,10 @@ public interface ICuidadoresDAO {
      * @param id ID del cuidador
      */
     void eliminar(ObjectId id);
+    
+    /**
+     * Encuentra a todos los cuidadores
+     * @return Una lista con todos los cuidadores
+     */
+    List<Cuidadores> consultar();
 }

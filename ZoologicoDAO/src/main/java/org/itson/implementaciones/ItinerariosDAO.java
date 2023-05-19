@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.itson.database.ConexionDB;
-import org.itson.control.ConstantesEtiquetas;
+import org.itson.database.ConstantesEtiquetas;
 import org.itson.dominio.Guias;
 import org.itson.dominio.Itinerarios;
 import org.itson.dominio.Zonas;

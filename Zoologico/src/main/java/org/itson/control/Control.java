@@ -28,8 +28,6 @@ public class Control {
     public void IngresarDatos() {
         MongoDatabase db = ConexionDB.getInstance();
         
-        System.out.println(db.getCollection("Climas").countDocuments());
-        
         if(db.getCollection("Climas").countDocuments() == 0) {
             Document dc1 = new Document("nombre", "tropical");
             Document dc2 = new Document("nombre", "helado");
@@ -44,10 +42,10 @@ public class Control {
             db.getCollection("Climas").insertMany(dc);
             
             List<Especies> es = new ArrayList<>();
-            Cuidadores cuidador1 = new Cuidadores("Carlos", new Direccion("Manuel Patruña", "Pinos Altos", "1547"), "6442548798", new Date(), es);
-            Cuidadores cuidador2 = new Cuidadores("Arturo", new Direccion("Pinguinos", "Ron Varon", "998A"), "6441548764", new Date(), es);
-            Cuidadores cuidador3 = new Cuidadores("Gabriela", new Direccion("Santa Clara", "Los Brillos", "1354"), "6444876547", new Date(), es);
-            Cuidadores cuidador4 = new Cuidadores("Ruben", new Direccion("Primos", "Las Luchas", "5487"), "6446478641", new Date(), es);
+            Cuidadores cuidador1 = new Cuidadores("Arturo", new Direccion("Pinguinos", "Ron Varon", "998A"), "6441548764", new Date(), es);
+            Cuidadores cuidador2 = new Cuidadores("Gabriela", new Direccion("Santa Clara", "Los Brillos", "1354"), "6444876547", new Date(), es);
+            Cuidadores cuidador3 = new Cuidadores("Ruben", new Direccion("Primos", "Las Luchas", "5487"), "6446478641", new Date(), es);
+            Cuidadores cuidador4 = new Cuidadores("Angel", new Direccion("Levantados", "Los Helados", "1547"), "6442548798", new Date(), es);
             
             ICuidadoresDAO cDAO = new CuidadoresDAO();
             

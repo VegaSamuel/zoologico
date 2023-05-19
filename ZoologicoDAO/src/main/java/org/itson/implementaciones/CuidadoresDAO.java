@@ -4,15 +4,17 @@
  */
 package org.itson.implementaciones;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.itson.database.ConexionDB;
-import org.itson.control.ConstantesEtiquetas;
+import org.itson.database.ConstantesEtiquetas;
 import org.itson.dominio.Cuidadores;
 import org.itson.dominio.Direccion;
 import org.itson.dominio.Especies;
@@ -83,6 +85,24 @@ public class CuidadoresDAO implements ICuidadoresDAO {
         if(result.getDeletedCount() > 0) {
             JOptionPane.showMessageDialog(null, "Cuidador eliminado existosamente.", "Eliminación existosa!!", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    /**
+     * Encuentra a todos los cuidadores
+     * @return Una lista con todos los cuidadores
+     */
+    @Override
+    public List<Cuidadores> consultar() {
+        MongoDatabase db = ConexionDB.getInstance();
+        List<Cuidadores> cuidadores = new ArrayList<>();
+        
+        FindIterable<Document> documents = db.getCollection("Cuidadores").find();
+        
+        for(Document document: documents) {
+            cuidadores.add((Cuidadores) consultar(document.getObjectId("_id")));
+        }
+        
+        return cuidadores;
     }
 
 }
