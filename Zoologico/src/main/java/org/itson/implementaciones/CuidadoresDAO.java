@@ -60,8 +60,8 @@ public class CuidadoresDAO implements ICuidadoresDAO {
         
         d.append(ce.NOMBRE, cuidador.getNombre())
          .append(ce.DIRECCION, new Document(ce.CALLE, cuidador.getDireccion().getCalle())
-                                    .append(ce.COLONIA, cuidador.getDireccion().getColonia())
-                                    .append(ce.NUMERO_CASA, cuidador.getDireccion().getnCasa()))
+         .append(ce.COLONIA, cuidador.getDireccion().getColonia())
+         .append(ce.NUMERO_CASA, cuidador.getDireccion().getnCasa()))
          .append(ce.TELEFONO, cuidador.getTelefono())
          .append(ce.FECHA_INGRESO, cuidador.getFechaIngreso())
          .append(ce.ESPECIES, cuidador.getEspecies());
