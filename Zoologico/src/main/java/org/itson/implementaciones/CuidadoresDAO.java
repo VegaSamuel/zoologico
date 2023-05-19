@@ -6,6 +6,9 @@ package org.itson.implementaciones;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
+import java.util.List;
+import javax.swing.JOptionPane;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.itson.database.ConexionDB;
@@ -22,6 +25,11 @@ import org.itson.interfaces.ICuidadoresDAO;
 public class CuidadoresDAO implements ICuidadoresDAO {
     ConstantesEtiquetas ce = new ConstantesEtiquetas();
     
+    /**
+     * Encuentra un cuidador por su ID
+     * @param id ID del cuidador
+     * @return Cuidador con ID coincidente
+     */
     @Override
     public Cuidadores consultar(ObjectId id) {
         MongoDatabase db = ConexionDB.getInstance();
@@ -32,19 +40,22 @@ public class CuidadoresDAO implements ICuidadoresDAO {
         if(d != null) {
             cuidador.setId(d.getObjectId("_id"));
             cuidador.setNombre(d.getString(ce.NOMBRE));
-            //cuidador.setDireccion((Direccion) d.get(ce.DIRECCION));
+            cuidador.setDireccion(new Direccion((Document) d.get(ce.DIRECCION)));
             cuidador.setTelefono(d.getString(ce.TELEFONO));
             cuidador.setFechaIngreso(d.getDate(ce.FECHA_INGRESO));
-            //cuidador.addEspecies((Especies) d.get(ce.ESPECIES));
+            cuidador.setEspecies((List<Especies>) d.get(ce.ESPECIES));
         }
         
         return cuidador;
     }
 
+    /**
+     * Inserta un cuidador
+     * @param cuidador Cuidador a insertar
+     */
     @Override
     public void insertar(Cuidadores cuidador) {
         MongoDatabase db = ConexionDB.getInstance();
-        
         Document d = new Document();
         
         d.append(ce.NOMBRE, cuidador.getNombre())
@@ -58,9 +69,20 @@ public class CuidadoresDAO implements ICuidadoresDAO {
         db.getCollection("Cuidadores").insertOne(d);
     }
 
+    /**
+     * Elimina un cuidador
+     * @param id ID del cuidador
+     */
     @Override
-    public void eliminar(Cuidadores cuidador) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void eliminar(ObjectId id) {
+        MongoDatabase db = ConexionDB.getInstance();
+        Document d = new Document("_id", id);
+        
+        DeleteResult result = db.getCollection("Cuidadores").deleteOne(d);
+        
+        if(result.getDeletedCount() > 0) {
+            JOptionPane.showMessageDialog(null, "Cuidador eliminado existosamente.", "Eliminación existosa!!", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
 }

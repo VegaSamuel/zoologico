@@ -7,6 +7,7 @@ package org.itson.dominio;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 /**
@@ -38,6 +39,18 @@ public class Cuidadores {
         this.telefono = telefono;
         this.fechaIngreso = fechaIngreso;
         this.especies = especies;
+    }
+    
+    /**
+     * Constructor que inicializa los atributos de la clase con un documento
+     * @param document Documento con datos de un cuidador
+     */
+    public Cuidadores(Document document) {
+        this.nombre = document.getString("nombre");
+        this.direccion = new Direccion((Document) document.get("direccion"));
+        this.telefono = document.getString("telefono");
+        this.fechaIngreso = document.getDate("fechaIngreso");
+        this.especies = (List<Especies>) document.get("especies");
     }
     
     public ObjectId getId() {

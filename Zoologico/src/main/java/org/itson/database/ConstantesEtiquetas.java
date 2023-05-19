@@ -19,4 +19,9 @@ public class ConstantesEtiquetas {
     public final String CALLE = "calle";
     public final String COLONIA = "colonia";
     public final String NUMERO_CASA = "numero casa";
+    //Especies
+    public final String NOMBRE_CIENTIFICO = "nombre cientifico";
+    public final String CUIDADOR = "cuidador";
+    public final String HABITAT = "habitat";
+    public final String ZONA = "zona";
 }

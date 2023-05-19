@@ -5,30 +5,30 @@
 package org.itson.interfaces;
 
 import org.bson.types.ObjectId;
-import org.itson.dominio.Cuidadores;
+import org.itson.dominio.Especies;
 
 /**
  * Interfaz con los métodos DAO de cuidadores
  * @author Samuel Vega
  */
-public interface ICuidadoresDAO {
+public interface IEspeciesDAO {
     
     /**
-     * Encuentra un cuidador por su ID
-     * @param id ID del cuidador
-     * @return Cuidador con ID coincidente
+     * Encuentra una especie por su id
+     * @param id ID de la especie
+     * @return Especie con ID coincidente
      */
-    Cuidadores consultar(ObjectId id);
+    Especies consultar(ObjectId id);
     
     /**
-     * Inserta un cuidador
-     * @param cuidadores Cuidador a insertar
+     * Inserta una especie
+     * @param especie Especie a insertar
      */
-    void insertar(Cuidadores cuidadores);
+    void insertar(Especies especie);
     
     /**
-     * Elimina un cuidador
-     * @param id ID del cuidador
+     * Elimina una especie
+     * @param id ID de la especie
      */
     void eliminar(ObjectId id);
 }

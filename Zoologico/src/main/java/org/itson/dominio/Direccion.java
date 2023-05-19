@@ -5,14 +5,13 @@
 package org.itson.dominio;
 
 import java.util.Objects;
-import org.bson.types.ObjectId;
+import org.bson.Document;
 
 /**
  * Contiene los atributos de una dirección
  * @author Samuel Vega
  */
 public class Direccion {
-    private ObjectId id;
     private String calle;
     private String colonia;
     private String nCasa;
@@ -21,24 +20,25 @@ public class Direccion {
     public Direccion() {}
 
     /**
-     * Constructor que inicializa los atributos de la clase
+     * Constructor que inicializa los atributos de la clase, excepto el ID
      * @param calle Calle de la dirección
      * @param colonia Colonia de la dirección
      * @param nCasa Número de casa de la dirección
      */
     public Direccion(String calle, String colonia, String nCasa) {
-        this.id = new ObjectId();
         this.calle = calle;
         this.colonia = colonia;
         this.nCasa = nCasa;
     }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
+    
+    /**
+     * Constructor que recibe un documento e inicializa los atributos de la clase con el documento
+     * @param document Documento con datos de Dirección
+     */
+    public Direccion(Document document) {
+        this.calle = document.getString("calle");
+        this.colonia = document.getString("colonia");
+        this.nCasa = document.getString("numero casa");
     }
 
     public String getCalle() {
@@ -66,43 +66,12 @@ public class Direccion {
     }
 
     /**
-     * Regresa el codigo hash de un objeto de esta clase
-     * @return El codigo hash de un objeto de esta clase
-     */
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        return hash;
-    }
-
-    /**
-     * Compara el objeto parámetro con un objeto de esta clase
-     * @param obj Objeto parámetro
-     * @return True si es el mismo, False en caso contrario
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Direccion other = (Direccion) obj;
-        return Objects.equals(this.id, other.id);
-    }
-
-    /**
      * Regresa una cadena que muestra los datos del objeto de la clase
      * @return Una cadena que muestra los datos del objeto de la clase
      */
     @Override
     public String toString() {
-        return "Direccion{" + "id=" + id + ", calle=" + calle + ", colonia=" + colonia + ", nCasa=" + nCasa + '}';
+        return "Direccion{" + "calle=" + calle + ", colonia=" + colonia + ", nCasa=" + nCasa + '}';
     }
 
 }
