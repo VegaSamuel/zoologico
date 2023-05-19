@@ -20,11 +20,17 @@ import org.itson.dominio.Cuidadores;
 import org.itson.dominio.Direccion;
 import org.itson.dominio.Especies;
 import org.itson.dominio.Habitats;
+import org.itson.dominio.Zonas;
 import org.itson.implementaciones.CuidadoresDAO;
+import org.itson.implementaciones.EspeciesDAO;
 import org.itson.implementaciones.HabitatsDAO;
+import org.itson.implementaciones.ZonasDAO;
 import org.itson.interfaces.ICuidadoresDAO;
+import org.itson.interfaces.IEspeciesDAO;
 import org.itson.interfaces.IHabitatsDAO;
+import org.itson.interfaces.IZonasDAO;
 import org.itson.presentacion.ConstantesGUI;
+import org.itson.presentacion.RegistrarEspecie;
 import org.itson.presentacion.RegistrarHabitat;
 
 /**
@@ -40,6 +46,9 @@ public class Control {
     List<String> climas = new ArrayList<>();
     List<String> vegetacion = new ArrayList<>();
     List<String> continentes = new ArrayList<>();
+    List<Habitats> habitats = new ArrayList<>();
+    List<Cuidadores> cuidadores = new ArrayList<>();
+    List<Zonas> zonas = new ArrayList<>();
     
     /**
      * Inserta datos en la base de datos
@@ -97,6 +106,21 @@ public class Control {
             cDAO.insertar(cuidador4);
         }
         
+        if(db.getCollection("Zonas").countDocuments() == 0) {
+            //Insertando zonas
+            List<Especies> es = new ArrayList<>();
+            Zonas zona1 = new Zonas("Norte", 20d, es);
+            Zonas zona2 = new Zonas("Sur", 16d, es);
+            Zonas zona3 = new Zonas("Este", 15.2d, es);
+            Zonas zona4 = new Zonas("Oeste", 12.5d, es);
+            
+            IZonasDAO zDAO = new ZonasDAO();
+            
+            zDAO.insertar(zona1);
+            zDAO.insertar(zona2);
+            zDAO.insertar(zona3);
+            zDAO.insertar(zona4);
+        }
     }
     
     /**
@@ -151,6 +175,61 @@ public class Control {
     }
     
     /**
+     * Recupera los datos necesarios para registrar una especie
+     * @param frame Ventana que ocupa el método
+     * @return Verdadero si se pudo recuperar, Falso en caso contrario.
+     */
+    public boolean recuperarDatosRegistroEspecie(JFrame frame) {
+        //Recibe los datos desde la base de datos
+        FindIterable<Document> dh = db.getCollection("Habitats").find();
+        FindIterable<Document> dc = db.getCollection("Cuidadores").find();
+        FindIterable<Document> dz = db.getCollection("Zonas").find();
+        
+        IHabitatsDAO hDAO = new HabitatsDAO();
+        ICuidadoresDAO cDAO = new CuidadoresDAO();
+        IZonasDAO zDAO = new ZonasDAO();
+        
+        //Llena las listas
+        if(habitats.isEmpty()) {
+            for(Document document: dh) {
+                habitats.add(hDAO.consultar(document.getObjectId("_id")));
+            }
+        }
+        
+        if(cuidadores.isEmpty()) {
+            for(Document document: dc) {
+                cuidadores.add(cDAO.consultar(document.getObjectId("_id")));
+            }
+        }
+        
+        if(zonas.isEmpty()) {
+            for(Document document: dz) {
+                zonas.add(zDAO.consultar(document.getObjectId("_id")));
+            }
+        }
+        
+        //Verifica habitats
+        if(habitats.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay ningún hábitat registrado en el sistema", "No hay hábitats!!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        //Verifica cuidadores
+        if(cuidadores.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay ningún cuidador registrado en el sistema", "No hay cuidadores!!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        //Verifica zonas
+        if(zonas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay ninguna zona registrada en el sistema", "No hay zonas!!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
      * Registra un hábitat
      * @param frame Ventana que lo solicita
      * @return True si ya existe, False en caso contrario
@@ -164,7 +243,10 @@ public class Control {
         DefaultComboBoxModel<String> listaVegetacion;
         DefaultComboBoxModel<String> listaContinentes;
         
-        String nombre = JOptionPane.showInputDialog(frame, "Nombre del hábitat: ", "Registrar hábitat", JOptionPane.QUESTION_MESSAGE);
+        String nombre = JOptionPane.showInputDialog(frame, "Nombre del hábitat: ", "Registrar hábitat", JOptionPane.QUESTION_MESSAGE).toLowerCase();
+        
+        if(nombre == null)
+            return false;
         
         Document d = db.getCollection("Habitats").find(Filters.eq(ce.NOMBRE, nombre)).first();
         
@@ -190,6 +272,55 @@ public class Control {
             return false;
         
         hDAO.insertar(habitat);
+        
+        JOptionPane.showMessageDialog(frame, "Hábitat registrado correctamente.", "Registro completado.", JOptionPane.INFORMATION_MESSAGE);
+        
+        return true;
+    }
+    
+    /**
+     * Registra una especie
+     * @param frame Ventana que lo solicita
+     * @return True si ya existe, False en caso contrario
+     */
+    public boolean registrarEspecie(JFrame frame) {
+        IEspeciesDAO eDAO = new EspeciesDAO();
+        StringBuffer respuesta = new StringBuffer();
+        Especies especie = new Especies();
+        RegistrarEspecie registrarEspecie;
+        DefaultComboBoxModel<Cuidadores> listaCuidadores;
+        DefaultComboBoxModel<Habitats> listaHabitats;
+        DefaultComboBoxModel<Zonas> listaZonas;
+        
+        String nombre = JOptionPane.showInputDialog(frame, "Nombre de la especie: ", "Registrar especie", JOptionPane.QUESTION_MESSAGE).toLowerCase();
+        
+        if(nombre == null)
+            return false;
+        
+        Document d = db.getCollection("Especies").find(Filters.eq("nombre", nombre)).first();
+        
+        listaCuidadores = conv.comboBoxCuidadores(cuidadores);
+        listaHabitats = conv.comboBoxHabitats(habitats);
+        listaZonas = conv.comboBoxZonas(zonas);
+        
+        if(d != null) {
+            JOptionPane.showMessageDialog(frame, "Esta especie ya existe", "Especie existente!!", JOptionPane.ERROR_MESSAGE);
+            
+            especie = eDAO.consultar(d.getObjectId("_id"));
+            
+            registrarEspecie = new RegistrarEspecie(frame, true, ConstantesGUI.DESPLEGAR, especie, listaCuidadores, listaHabitats, listaZonas, respuesta);
+            
+            return false;
+        }
+        
+        especie.setNombre(nombre);
+        
+        registrarEspecie = new RegistrarEspecie(frame, true, ConstantesGUI.AGREGAR, especie, listaCuidadores, listaHabitats, listaZonas, respuesta);
+        
+        if(respuesta.substring(0).equals(ConstantesGUI.CANCELAR))
+            return false;
+        
+        eDAO.insertar(especie);
         
         JOptionPane.showMessageDialog(frame, "Hábitat registrado correctamente.", "Registro completado.", JOptionPane.INFORMATION_MESSAGE);
         

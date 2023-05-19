@@ -5,37 +5,52 @@
 package org.itson.presentacion;
 
 import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Point;
+import javax.swing.DefaultComboBoxModel;
+import org.itson.dominio.Cuidadores;
+import org.itson.dominio.Especies;
+import org.itson.dominio.Habitats;
+import org.itson.dominio.Zonas;
 
 /**
  * Pantalla para registrar una especie
  * @author Samuel Vega
  */
-public class RegistrarEspecie extends javax.swing.JFrame {
-
-    /**
-     * Creates new form RegistrarEspecie
-     */
-    public RegistrarEspecie() {
+public class RegistrarEspecie extends javax.swing.JDialog {
+    private int operacion;
+    private Especies especie;
+    private DefaultComboBoxModel<Cuidadores> listaCuidadores;
+    private DefaultComboBoxModel<Habitats> listaHabitats;
+    private DefaultComboBoxModel<Zonas> listaZonas;
+    private StringBuffer respuesta;
+    
+    
+    public RegistrarEspecie(java.awt.Frame parent, boolean modal, int operacion, Especies especie, DefaultComboBoxModel<Cuidadores> listaCuidadores, DefaultComboBoxModel<Habitats> listaHabitats, DefaultComboBoxModel<Zonas> listaZonas, StringBuffer respuesta) {
+        super(parent, modal);
+        this.operacion = operacion;
+        this.especie = especie;
+        this.listaCuidadores = listaCuidadores;
+        this.listaHabitats = listaHabitats;
+        this.listaZonas = listaZonas;
+        this.respuesta = respuesta;
+        
         initComponents();
-        centrarVentana();
+        
+        centraCuadroDialogo(parent);
     }
     
-    private void centrarVentana() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    /**
+     * Centra la ventana conforme a la ventana que solicito esta ventana
+     * @param parent Ventana que solicito esta ventana
+     */
+    private void centraCuadroDialogo(java.awt.Frame parent){
+        Dimension frameSize = parent.getSize();
+        Point loc = parent.getLocation();
         
-        Dimension frameSize = getSize();
+        Dimension dlgSize = getPreferredSize();
         
-        if(frameSize.height > screenSize.height) {
-            frameSize.height = screenSize.height;
-        }
-        
-        if(frameSize.width > screenSize.width) {
-            frameSize.width = screenSize.width;
-        }
-        
-        setLocation((screenSize.width - frameSize.width) / 2, 
-                    (screenSize.height - frameSize.height) / 2);
+        setLocation( (frameSize.width - dlgSize.width) / 2 + loc.x,
+                     (frameSize.height - dlgSize.height) / 2 + loc.y);
     }
 
     /**

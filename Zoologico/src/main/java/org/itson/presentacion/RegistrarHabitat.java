@@ -69,6 +69,10 @@ public class RegistrarHabitat extends javax.swing.JDialog {
         setVisible(true);
     }
     
+    /**
+     * Centra la ventana conforme a la ventana que solicito esta ventana
+     * @param parent Ventana que solicito esta ventana
+     */
     private void centraCuadroDialogo(java.awt.Frame parent){
         Dimension frameSize = parent.getSize();
         Point loc = parent.getLocation();

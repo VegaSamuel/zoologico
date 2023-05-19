@@ -119,8 +119,9 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuOpcionRegistrarHabitatActionPerformed
 
     private void menuOpcionRegistrarEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpcionRegistrarEspecieActionPerformed
-        RegistrarEspecie re = new RegistrarEspecie();
-        re.setVisible(true);
+        if(control.recuperarDatosRegistroEspecie(this)) {
+            control.registrarEspecie(this);
+        }
     }//GEN-LAST:event_menuOpcionRegistrarEspecieActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

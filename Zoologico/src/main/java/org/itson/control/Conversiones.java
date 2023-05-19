@@ -6,6 +6,9 @@ package org.itson.control;
 
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import org.itson.dominio.Cuidadores;
+import org.itson.dominio.Habitats;
+import org.itson.dominio.Zonas;
 
 /**
  * Define las conversiones de los comboboxes y tablas
@@ -49,6 +52,45 @@ public class Conversiones {
             return defaultComboBoxModel;
         }
         
+        return null;
+    }
+    
+    public DefaultComboBoxModel<Cuidadores> comboBoxCuidadores(List<Cuidadores> listaCuidadores) {
+        DefaultComboBoxModel<Cuidadores> defaultComboBoxModel = new DefaultComboBoxModel();
+        
+        if(listaCuidadores != null) {
+            for(int i=0; i < listaCuidadores.size(); i++) {
+                defaultComboBoxModel.addElement(listaCuidadores.get(i));
+            }
+            return defaultComboBoxModel;
+        }
+                
+        return null;
+    }
+    
+    public DefaultComboBoxModel<Habitats> comboBoxHabitats(List<Habitats> listaHabitats) {
+        DefaultComboBoxModel<Habitats> defaultComboBoxModel = new DefaultComboBoxModel();
+        
+        if(listaHabitats != null) {
+            for(int i=0; i < listaHabitats.size(); i++) {
+                defaultComboBoxModel.addElement(listaHabitats.get(i));
+            }
+            return defaultComboBoxModel;
+        }
+                
+        return null;
+    }
+    
+    public DefaultComboBoxModel<Zonas> comboBoxZonas(List<Zonas> listaZonas) {
+        DefaultComboBoxModel<Zonas> defaultComboBoxModel = new DefaultComboBoxModel();
+        
+        if(listaZonas != null) {
+            for(int i=0; i < listaZonas.size(); i++) {
+                defaultComboBoxModel.addElement(listaZonas.get(i));
+            }
+            return defaultComboBoxModel;
+        }
+                
         return null;
     }
 }
