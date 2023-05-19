@@ -114,8 +114,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuOpcionRegistrarHabitatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpcionRegistrarHabitatActionPerformed
         if(control.recuperarDatosRegistroHabitat(this)) {
-            RegistrarHabitat rh = new RegistrarHabitat();
-            rh.setVisible(true);
+            control.registrarHabitat(this);
         }
     }//GEN-LAST:event_menuOpcionRegistrarHabitatActionPerformed
 

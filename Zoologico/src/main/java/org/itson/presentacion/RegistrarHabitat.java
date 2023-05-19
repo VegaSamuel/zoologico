@@ -5,38 +5,47 @@
 package org.itson.presentacion;
 
 import java.awt.Dimension;
-import java.awt.Toolkit;
-import org.itson.control.Control;
+import java.awt.Point;
+import javax.swing.DefaultComboBoxModel;
+import org.itson.dominio.Habitats;
 
 /**
  * Pantalla para registrar un hábitat
  * @author Samuel Vega
  */
-public class RegistrarHabitat extends javax.swing.JFrame {
+public class RegistrarHabitat extends javax.swing.JDialog {
+    private Habitats habitat;
+    private DefaultComboBoxModel<String> listaClimas;
+    private DefaultComboBoxModel<String> listaVegetacion;
+    private DefaultComboBoxModel<String> listaContinentes;
     
     /**
-     * Creates new form RegistrarHabitat
+     * Crea una ventana para registrar un hábitat
+     * @param parent Ventana que la solicita
+     * @param modal Definir si se enfoca o no esta ventana
+     * @param habitat Hábitat sobre el que se actuará
+     * @param listaClimas Lista de climas
+     * @param listaVegetacion Lista de tipos de vegetación
+     * @param listaContinentes Lista de continentes
+     * @param respuesta Respuesta de la ventana
      */
-    public RegistrarHabitat() {
+    public RegistrarHabitat(java.awt.Frame parent, boolean modal, Habitats habitat, DefaultComboBoxModel listaClimas, DefaultComboBoxModel listaVegetacion, DefaultComboBoxModel listaContinentes, StringBuffer respuesta) {
+        super(parent, modal);
+        
+        
         initComponents();
-        centrarVentana();
+        centraCuadroDialogo(parent);
+        setVisible(true);
     }
-
-    private void centrarVentana() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    
+    private void centraCuadroDialogo(java.awt.Frame parent){
+        Dimension frameSize = parent.getSize();
+        Point loc = parent.getLocation();
         
-        Dimension frameSize = getSize();
+        Dimension dlgSize = getPreferredSize();
         
-        if(frameSize.height > screenSize.height) {
-            frameSize.height = screenSize.height;
-        }
-        
-        if(frameSize.width > screenSize.width) {
-            frameSize.width = screenSize.width;
-        }
-        
-        setLocation((screenSize.width - frameSize.width) / 2, 
-                    (screenSize.height - frameSize.height) / 2);
+        setLocation( (frameSize.width - dlgSize.width) / 2 + loc.x,
+                     (frameSize.height - dlgSize.height) / 2 + loc.y);
     }
     
     /**
@@ -49,6 +58,7 @@ public class RegistrarHabitat extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registrar Hábitat");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

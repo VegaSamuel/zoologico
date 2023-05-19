@@ -6,18 +6,26 @@ package org.itson.control;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 import org.itson.database.ConexionDB;
+import org.itson.database.ConstantesEtiquetas;
 import org.itson.dominio.Cuidadores;
 import org.itson.dominio.Direccion;
 import org.itson.dominio.Especies;
+import org.itson.dominio.Habitats;
 import org.itson.implementaciones.CuidadoresDAO;
+import org.itson.implementaciones.HabitatsDAO;
 import org.itson.interfaces.ICuidadoresDAO;
+import org.itson.interfaces.IHabitatsDAO;
+import org.itson.presentacion.ConstantesGUI;
+import org.itson.presentacion.RegistrarHabitat;
 
 /**
  * Lleva un control de ciertos aspectos
@@ -25,6 +33,13 @@ import org.itson.interfaces.ICuidadoresDAO;
  */
 public class Control {
     MongoDatabase db = ConexionDB.getInstance();
+    ConstantesEtiquetas ce = new ConstantesEtiquetas();
+    Conversiones conv = new Conversiones();
+    
+    //Crea listas
+    List<String> climas = new ArrayList<>();
+    List<String> vegetacion = new ArrayList<>();
+    List<String> continentes = new ArrayList<>();
     
     /**
      * Inserta datos en la base de datos
@@ -90,11 +105,6 @@ public class Control {
      * @return Verdadero si se pudo recuperar, Falso en caso contrario.
      */
     public boolean recuperarDatosRegistroHabitat(JFrame frame) {
-        //Crea listas
-        List<String> climas = new ArrayList<>();
-        List<String> vegetacion = new ArrayList<>();
-        List<String> continentes = new ArrayList<>();
-        
         //Recibe los datos desde la base de datos
         FindIterable<Document> dc = db.getCollection("Climas").find();
         FindIterable<Document> dv = db.getCollection("TiposVegetacion").find();
@@ -134,4 +144,45 @@ public class Control {
         return true;
     }
     
+    /**
+     * Registra un hábitat
+     * @param frame Ventana que lo solicita
+     * @return True si ya existe, False en caso contrario
+     */
+    public boolean registrarHabitat(JFrame frame) {
+        StringBuffer respuesta = new StringBuffer();
+        Habitats habitat = new Habitats();
+        RegistrarHabitat registrarHabitat;
+        DefaultComboBoxModel<String> listaClimas;
+        DefaultComboBoxModel<String> listaVegetacion;
+        DefaultComboBoxModel<String> listaContinentes;
+        
+        String nombre = JOptionPane.showInputDialog(frame, "Nombre del hábitat: ", "Registrar hábitat", JOptionPane.QUESTION_MESSAGE);
+        
+        Document d = db.getCollection("Habitats").find(Filters.eq(ce.NOMBRE, nombre)).first();
+        
+        if(d != null) {
+            JOptionPane.showMessageDialog(frame, "Ese hábitat ya existe", "Hábitat existente!!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        listaClimas = conv.comboBoxClimas(climas);
+        listaVegetacion = conv.comboBoxVegetacion(vegetacion);
+        listaContinentes = conv.comboBoxContinentes(continentes);
+        
+        habitat.setNombre(nombre);
+        
+        registrarHabitat = new RegistrarHabitat(frame, true, habitat, listaClimas, listaVegetacion, listaContinentes, respuesta);
+        
+        if(respuesta.substring(0).equals(ConstantesGUI.CANCELAR))
+            return false;
+        
+        IHabitatsDAO hDAO = new HabitatsDAO();
+        
+        hDAO.insertar(habitat);
+        
+        JOptionPane.showMessageDialog(frame, "Hábitat registrado correctamente.", "Registro completado.", JOptionPane.INFORMATION_MESSAGE);
+        
+        return true;
+    }
 }
