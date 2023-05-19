@@ -6,13 +6,14 @@ package org.itson.presentacion;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import org.itson.control.Control;
 
 /**
  * Pantalla para registrar un hábitat
  * @author Samuel Vega
  */
 public class RegistrarHabitat extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form RegistrarHabitat
      */

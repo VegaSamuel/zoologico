@@ -6,13 +6,15 @@ package org.itson.presentacion;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import org.itson.control.Control;
 
 /**
  * Ventana Principal
  * @author Samuel Vega
  */
 public class MainWindow extends javax.swing.JFrame {
-
+    Control control = new Control();
+    
     /**
      * Creates new form Main
      */
@@ -111,8 +113,10 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuOpcionSalirActionPerformed
 
     private void menuOpcionRegistrarHabitatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpcionRegistrarHabitatActionPerformed
-        RegistrarHabitat rh = new RegistrarHabitat();
-        rh.setVisible(true);
+        if(control.recuperarDatosRegistroHabitat(this)) {
+            RegistrarHabitat rh = new RegistrarHabitat();
+            rh.setVisible(true);
+        }
     }//GEN-LAST:event_menuOpcionRegistrarHabitatActionPerformed
 
     private void menuOpcionRegistrarEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpcionRegistrarEspecieActionPerformed
