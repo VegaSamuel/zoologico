@@ -4,9 +4,11 @@
  */
 package org.itson.implementaciones;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.bson.Document;
@@ -78,4 +80,21 @@ public class ZonasDAO implements IZonasDAO {
         }
     }
     
+    /**
+     * Encuentra a todos las zonas
+     * @return Una lista con todos las zonas
+     */
+    @Override
+    public List<Zonas> consultar() {
+        MongoDatabase db = ConexionDB.getInstance();
+        List<Zonas> zonas = new ArrayList<>();
+        
+        FindIterable<Document> documents = db.getCollection("Zonas").find();
+        
+        for(Document document: documents) {
+            zonas.add((Zonas) consultar(document.getObjectId("_id")));
+        }
+        
+        return zonas;
+    }
 }

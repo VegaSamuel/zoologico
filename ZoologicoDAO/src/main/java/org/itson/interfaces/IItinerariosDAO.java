@@ -4,6 +4,7 @@
  */
 package org.itson.interfaces;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.itson.dominio.Itinerarios;
 
@@ -31,4 +32,10 @@ public interface IItinerariosDAO {
      * @param id ID del itinerario
      */
     void eliminar(ObjectId id);
+    
+    /**
+     * Encuentra a todos los itinerarios
+     * @return Una lista con todos los itinerarios
+     */
+    List<Itinerarios> consultar();
 }

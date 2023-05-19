@@ -4,9 +4,11 @@
  */
 package org.itson.implementaciones;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.bson.Document;
@@ -85,6 +87,24 @@ public class ItinerariosDAO implements IItinerariosDAO {
         if(result.getDeletedCount() > 0) {
             JOptionPane.showMessageDialog(null, "Itinerario eliminado existosamente.", "Eliminación existosa!!", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    /**
+     * Encuentra a todos los itinerarios
+     * @return Una lista con todos los itinerarios
+     */
+    @Override
+    public List<Itinerarios> consultar() {
+        MongoDatabase db = ConexionDB.getInstance();
+        List<Itinerarios> itinerarios = new ArrayList<>();
+        
+        FindIterable<Document> documents = db.getCollection("Itinerarios").find();
+        
+        for(Document document: documents) {
+            itinerarios.add((Itinerarios) consultar(document.getObjectId("_id")));
+        }
+        
+        return itinerarios;
     }
     
 }

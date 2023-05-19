@@ -4,6 +4,7 @@
  */
 package org.itson.interfaces;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.itson.dominio.Zonas;
 
@@ -31,4 +32,10 @@ public interface IZonasDAO {
      * @param id ID de la zona
      */
     void eliminar(ObjectId id);
+    
+    /**
+     * Encuentra a todos las zonas
+     * @return Una lista con todos las zonas
+     */
+    List<Zonas> consultar();
 }

@@ -4,6 +4,7 @@
  */
 package org.itson.interfaces;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.itson.dominio.Especies;
 
@@ -31,4 +32,10 @@ public interface IEspeciesDAO {
      * @param id ID de la especie
      */
     void eliminar(ObjectId id);
+    
+    /**
+     * Encuentra a todos las especies
+     * @return Una lista con todos las especies
+     */
+    List<Especies> consultar();
 }

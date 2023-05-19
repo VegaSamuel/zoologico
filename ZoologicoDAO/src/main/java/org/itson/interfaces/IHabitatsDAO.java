@@ -4,6 +4,7 @@
  */
 package org.itson.interfaces;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.itson.dominio.Habitats;
 
@@ -31,4 +32,10 @@ public interface IHabitatsDAO {
      * @param id ID del hábitat
      */
     void eliminar(ObjectId id);
+    
+    /**
+     * Encuentra a todos los hábitats
+     * @return Una lista con todos los hábitats
+     */
+    List<Habitats> consultar();
 }

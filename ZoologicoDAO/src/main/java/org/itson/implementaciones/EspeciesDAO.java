@@ -4,9 +4,12 @@
  */
 package org.itson.implementaciones;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -81,6 +84,24 @@ public class EspeciesDAO implements IEspeciesDAO {
         if(result.getDeletedCount() > 0) {
             JOptionPane.showMessageDialog(null, "Especie eliminado existosamente.", "Eliminación existosa!!", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    /**
+     * Encuentra a todos las especies
+     * @return Una lista con todos las especies
+     */
+    @Override
+    public List<Especies> consultar() {
+        MongoDatabase db = ConexionDB.getInstance();
+        List<Especies> especies = new ArrayList<>();
+        
+        FindIterable<Document> documents = db.getCollection("Especies").find();
+        
+        for(Document document: documents) {
+            especies.add((Especies) consultar(document.getObjectId("_id")));
+        }
+        
+        return especies;
     }
     
 }

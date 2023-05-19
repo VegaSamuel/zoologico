@@ -4,9 +4,11 @@
  */
 package org.itson.implementaciones;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.bson.Document;
@@ -77,5 +79,23 @@ public class HabitatsDAO implements IHabitatsDAO {
         if(result.getDeletedCount() > 0) {
             JOptionPane.showMessageDialog(null, "Hábitat eliminado existosamente.", "Eliminación existosa!!", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    /**
+     * Encuentra a todos los hábitats
+     * @return Una lista con todos los hábitats
+     */
+    @Override
+    public List<Habitats> consultar() {
+        MongoDatabase db = ConexionDB.getInstance();
+        List<Habitats> habitats = new ArrayList<>();
+        
+        FindIterable<Document> documents = db.getCollection("Habitats").find();
+        
+        for(Document document: documents) {
+            habitats.add((Habitats) consultar(document.getObjectId("_id")));
+        }
+        
+        return habitats;
     }
 }

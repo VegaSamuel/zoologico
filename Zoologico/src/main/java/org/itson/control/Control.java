@@ -29,18 +29,25 @@ public class Control {
         MongoDatabase db = ConexionDB.getInstance();
         
         if(db.getCollection("Climas").countDocuments() == 0) {
-            Document dc1 = new Document("nombre", "tropical");
-            Document dc2 = new Document("nombre", "helado");
-            Document dc3 = new Document("nombre", "calido");
-            
+            //Insertando climas
             List<Document> dc = new ArrayList<>();
             
-            dc.add(dc1);
-            dc.add(dc2);
-            dc.add(dc3);
+            dc.add(new Document("nombre", "tropical"));
+            dc.add(new Document("nombre", "helado"));
+            dc.add(new Document("nombre", "calido"));
             
             db.getCollection("Climas").insertMany(dc);
             
+            //Insertando tipos de vegetación
+            List<Document> dv = new ArrayList<>();
+            
+            dv.add(new Document("nombre", "bosque"));
+            dv.add(new Document("nombre", "selva"));
+            dv.add(new Document("nombre", "desierto"));
+            
+            db.getCollection("TiposVegetacion").insertMany(dv);
+            
+            //Insertando cuidadores
             List<Especies> es = new ArrayList<>();
             Cuidadores cuidador1 = new Cuidadores("Arturo", new Direccion("Pinguinos", "Ron Varon", "998A"), "6441548764", new Date(), es);
             Cuidadores cuidador2 = new Cuidadores("Gabriela", new Direccion("Santa Clara", "Los Brillos", "1354"), "6444876547", new Date(), es);
@@ -54,5 +61,7 @@ public class Control {
             cDAO.insertar(cuidador3);
             cDAO.insertar(cuidador4);
         }
+        
+        
     }
 }

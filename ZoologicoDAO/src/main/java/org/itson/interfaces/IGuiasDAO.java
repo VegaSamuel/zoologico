@@ -4,6 +4,7 @@
  */
 package org.itson.interfaces;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.itson.dominio.Guias;
 
@@ -31,4 +32,10 @@ public interface IGuiasDAO {
      * @param id ID del guia
      */
     void eliminar(ObjectId id);
+    
+    /**
+     * Encuentra a todos los guías
+     * @return Una lista con todos los guías
+     */
+    List<Guias> consultar();
 }

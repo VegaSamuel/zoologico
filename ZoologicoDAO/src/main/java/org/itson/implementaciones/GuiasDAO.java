@@ -4,9 +4,11 @@
  */
 package org.itson.implementaciones;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.bson.Document;
@@ -81,5 +83,23 @@ public class GuiasDAO implements IGuiasDAO {
         if(result.getDeletedCount() > 0) {
             JOptionPane.showMessageDialog(null, "Guía eliminado existosamente.", "Eliminación existosa!!", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    /**
+     * Encuentra a todos los guías
+     * @return Una lista con todos los guías
+     */
+    @Override
+    public List<Guias> consultar() {
+        MongoDatabase db = ConexionDB.getInstance();
+        List<Guias> guias = new ArrayList<>();
+        
+        FindIterable<Document> documents = db.getCollection("Guias").find();
+        
+        for(Document document: documents) {
+            guias.add((Guias) consultar(document.getObjectId("_id")));
+        }
+        
+        return guias;
     }
 }
