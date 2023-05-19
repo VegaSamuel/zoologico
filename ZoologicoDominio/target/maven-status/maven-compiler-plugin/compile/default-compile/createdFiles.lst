@@ -1,0 +1,9 @@
+org\itson\dominio\Guias.class
+org\itson\dominio\Cuidadores.class
+org\itson\dominio\Itinerarios.class
+org\itson\dominio\Direccion.class
+org\itson\database\ConstantesEtiquetas.class
+org\itson\dominio\Zonas.class
+org\itson\dominio\Especies.class
+org\itson\database\ConexionDB.class
+org\itson\dominio\Habitats.class

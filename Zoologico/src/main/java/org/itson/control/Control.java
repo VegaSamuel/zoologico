@@ -61,7 +61,12 @@ public class Control {
             cDAO.insertar(cuidador3);
             cDAO.insertar(cuidador4);
         }
-        
-        
     }
+    
+    public boolean recuperarDatosRegistroHabitat() {
+        
+        
+        return true;
+    }
+    
 }

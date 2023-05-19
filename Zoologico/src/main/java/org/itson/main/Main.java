@@ -6,6 +6,8 @@ package org.itson.main;
 
 
 import org.itson.control.Control;
+import org.itson.implementaciones.HabitatsDAO;
+import org.itson.interfaces.IHabitatsDAO;
 import org.itson.presentacion.MainWindow;
 
 /**
@@ -18,6 +20,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        IHabitatsDAO cu = new HabitatsDAO();
+        
         Control c = new Control();
         
         c.IngresarDatos();
