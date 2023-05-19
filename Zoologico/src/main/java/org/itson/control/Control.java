@@ -111,16 +111,22 @@ public class Control {
         FindIterable<Document> dco = db.getCollection("Continentes").find();
         
         //Llena las listas
-        for(Document document: dc) {
-            climas.add(document.getString("nombre"));
+        if(climas.isEmpty()) {
+            for(Document document: dc) {
+                climas.add(document.getString("nombre"));
+            }
         }
         
-        for(Document document: dv) {
-            vegetacion.add(document.getString("nombre"));
+        if(vegetacion.isEmpty()) {
+            for(Document document: dv) {
+                vegetacion.add(document.getString("nombre"));
+            }
         }
         
-        for(Document document: dco) {
-            continentes.add(document.getString("nombre"));
+        if(continentes.isEmpty()) {
+            for(Document document: dco) {
+                continentes.add(document.getString("nombre"));
+            }
         }
         
         //Verifica climas
@@ -150,6 +156,7 @@ public class Control {
      * @return True si ya existe, False en caso contrario
      */
     public boolean registrarHabitat(JFrame frame) {
+        IHabitatsDAO hDAO = new HabitatsDAO();
         StringBuffer respuesta = new StringBuffer();
         Habitats habitat = new Habitats();
         RegistrarHabitat registrarHabitat;
@@ -161,23 +168,26 @@ public class Control {
         
         Document d = db.getCollection("Habitats").find(Filters.eq(ce.NOMBRE, nombre)).first();
         
-        if(d != null) {
-            JOptionPane.showMessageDialog(frame, "Ese hábitat ya existe", "Hábitat existente!!", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
         listaClimas = conv.comboBoxClimas(climas);
         listaVegetacion = conv.comboBoxVegetacion(vegetacion);
         listaContinentes = conv.comboBoxContinentes(continentes);
         
+        if(d != null) {
+            JOptionPane.showMessageDialog(frame, "Ese hábitat ya existe", "Hábitat existente!!", JOptionPane.ERROR_MESSAGE);
+            
+            habitat = hDAO.consultar(d.getObjectId("_id"));
+            
+            registrarHabitat = new RegistrarHabitat(frame, true, ConstantesGUI.DESPLEGAR, habitat, listaClimas, listaVegetacion, listaContinentes, respuesta);
+            
+            return false;
+        }
+        
         habitat.setNombre(nombre);
         
-        registrarHabitat = new RegistrarHabitat(frame, true, habitat, listaClimas, listaVegetacion, listaContinentes, respuesta);
+        registrarHabitat = new RegistrarHabitat(frame, true, ConstantesGUI.AGREGAR, habitat, listaClimas, listaVegetacion, listaContinentes, respuesta);
         
         if(respuesta.substring(0).equals(ConstantesGUI.CANCELAR))
             return false;
-        
-        IHabitatsDAO hDAO = new HabitatsDAO();
         
         hDAO.insertar(habitat);
         
