@@ -39,6 +39,7 @@ public class ItinerariosDAO implements IItinerariosDAO {
         
         if(d != null) {
             itinerario.setId(d.getObjectId("_id"));
+            itinerario.setNombre(d.getString(ce.NOMBRE));
             itinerario.setDuracion(d.getInteger(ce.DURACION));
             itinerario.setLongitud(d.getDouble(ce.LONGITUD));
             itinerario.setMaxVisitanteAutorizados(d.getInteger(ce.VISITANTES));
@@ -59,7 +60,8 @@ public class ItinerariosDAO implements IItinerariosDAO {
         MongoDatabase db = ConexionDB.getInstance();
         Document d = new Document();
         
-        d.append(ce.DURACION, itinerario.getDuracion())
+        d.append(ce.NOMBRE, itinerario.getNombre())
+         .append(ce.DURACION, itinerario.getDuracion())
          .append(ce.LONGITUD, itinerario.getLongitud())
          .append(ce.VISITANTES, itinerario.getMaxVisitanteAutorizados())
          .append(ce.NESPECIES, itinerario.getNumEspeciesDistintas())

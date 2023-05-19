@@ -4,15 +4,7 @@
  */
 package org.itson.main;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import org.bson.types.ObjectId;
-import org.itson.dominio.Cuidadores;
-import org.itson.dominio.Direccion;
-import org.itson.dominio.Especies;
-import org.itson.implementaciones.CuidadoresDAO;
-import org.itson.interfaces.ICuidadoresDAO;
+import org.itson.presentacion.MainWindow;
 
 /**
  * Esta clase es la principal que se encarga solamente de iniciar el programa.
@@ -24,19 +16,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ObjectId id = new ObjectId("6466f3f2d9f20116a942da16");
+        MainWindow main = new MainWindow();
         
-        List<Especies> es = new ArrayList<>();
-        
-        Cuidadores c = new Cuidadores("Carlos", new Direccion("Santa Clara", "Queti", "12345"), "64423547678", new Date(), es);
-        
-        ICuidadoresDAO cDAO = new CuidadoresDAO();
-        
-        cDAO.insertar(c);
-        
-//        System.out.println(cDAO.consultar(id));
-        
-//        cDAO.eliminar(id);
+        main.setVisible(true);
     }
     
 }

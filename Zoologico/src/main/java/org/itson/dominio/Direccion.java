@@ -4,7 +4,6 @@
  */
 package org.itson.dominio;
 
-import java.util.Objects;
 import org.bson.Document;
 
 /**

@@ -15,6 +15,7 @@ import org.bson.types.ObjectId;
  */
 public class Habitats {
     private ObjectId id;
+    private String nombre;
     private String clima;
     private String tipoVegetacion;
     private List<String> continente;
@@ -24,12 +25,14 @@ public class Habitats {
 
     /**
      * Constructor que inicializa los atributos de la clase
+     * @param nombre Nombre del hábitat
      * @param clima Clima del hábitat
      * @param tipoVegetacion Tipo de vegetación del hábitat
      * @param continente Continente al que pertenece el hábitat
      */
-    public Habitats(String clima, String tipoVegetacion, List<String> continente) {
+    public Habitats(String nombre, String clima, String tipoVegetacion, List<String> continente) {
         this.id = new ObjectId();
+        this.nombre = nombre;
         this.clima = clima;
         this.tipoVegetacion = tipoVegetacion;
         this.continente = continente;
@@ -40,6 +43,7 @@ public class Habitats {
      * @param document Documento con datos de un habitat
      */
     public Habitats(Document document) {
+        this.nombre = document.getString("nombre");
         this.clima = document.getString("clima");
         this.tipoVegetacion = document.getString("tipoVegetacion");
         this.continente = (List<String>) document.get("continentes");
@@ -51,6 +55,14 @@ public class Habitats {
 
     public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getClima() {
@@ -114,7 +126,7 @@ public class Habitats {
      */
     @Override
     public String toString() {
-        return "Habitats{" + "id=" + id + ", clima=" + clima + ", tipoVegetacion=" + tipoVegetacion + ", continente=" + continente + '}';
+        return "Habitats{" + "id=" + id + ", nombre=" + nombre + ", clima=" + clima + ", tipoVegetacion=" + tipoVegetacion + ", continente=" + continente + '}';
     }
 
 }

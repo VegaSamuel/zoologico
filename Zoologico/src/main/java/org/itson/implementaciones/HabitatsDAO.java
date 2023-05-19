@@ -37,6 +37,7 @@ public class HabitatsDAO implements IHabitatsDAO {
         
         if(d != null) {
             habitat.setId(d.getObjectId("_id"));
+            habitat.setNombre(d.getString(ce.NOMBRE));
             habitat.setClima(d.getString(ce.CLIMA));
             habitat.setTipoVegetacion(d.getString(ce.VEGETACION));
             habitat.setContinente((List<String>) d.get(ce.CONTINENTES));
@@ -54,7 +55,8 @@ public class HabitatsDAO implements IHabitatsDAO {
         MongoDatabase db = ConexionDB.getInstance();
         Document d = new Document();
         
-        d.append(ce.CLIMA, habitat.getClima())
+        d.append(ce.NOMBRE, habitat.getNombre())
+         .append(ce.CLIMA, habitat.getClima())
          .append(ce.VEGETACION, habitat.getTipoVegetacion())
          .append(ce.CONTINENTES, habitat.getContinente());
         

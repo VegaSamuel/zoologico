@@ -15,6 +15,7 @@ import org.bson.types.ObjectId;
  */
 public class Itinerarios {
     private ObjectId id;
+    private String nombre;
     private Integer duracion;
     private Double longitud;
     private Integer maxVisitanteAutorizados;
@@ -28,14 +29,16 @@ public class Itinerarios {
     /**
      * Constructor que inicializa los atributos de la clase
      * @param duracion Duración en minutos
+     * @param nombre Nombre del itinerario
      * @param longitud Longitud del recorrido en metros
      * @param maxVisitanteAutorizados Número máximo de vistantes autorizados
      * @param numEspeciesDistintas Número de especies que están dentro del recorrido
      * @param guia Guía encargado del recorrido
      * @param zonas Zonas por las que pasará el recorrido
      */
-    public Itinerarios(Integer duracion, Double longitud, Integer maxVisitanteAutorizados, Integer numEspeciesDistintas, Guias guia, List<Zonas> zonas) {
+    public Itinerarios(String nombre, Integer duracion, Double longitud, Integer maxVisitanteAutorizados, Integer numEspeciesDistintas, Guias guia, List<Zonas> zonas) {
         this.id = new ObjectId();
+        this.nombre = nombre;
         this.duracion = duracion;
         this.longitud = longitud;
         this.maxVisitanteAutorizados = maxVisitanteAutorizados;
@@ -45,6 +48,7 @@ public class Itinerarios {
     }
 
     public Itinerarios(Document document) {
+        this.nombre = document.getString("nombre");
         this.duracion = document.getInteger("duracion");
         this.longitud = document.getDouble("longitud");
         this.maxVisitanteAutorizados = document.getInteger("maxVisitantesAutorizados");
@@ -67,6 +71,22 @@ public class Itinerarios {
      */
     public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    /**
+     * Regresa el nombre del recorrido
+     * @return El nombre del recorrido
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Define el nombre del recorrido
+     * @param nombre Nombre del recorrido
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
@@ -202,7 +222,7 @@ public class Itinerarios {
      */
     @Override
     public String toString() {
-        return "Itinerarios{" + "id=" + id + ", duracion=" + duracion + ", longitud=" + longitud + ", maxVisitanteAutorizados=" + maxVisitanteAutorizados + ", numEspeciesDistintas=" + numEspeciesDistintas + ", guia=" + guia + '}';
+        return "Itinerarios{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + ", longitud=" + longitud + ", maxVisitanteAutorizados=" + maxVisitanteAutorizados + ", numEspeciesDistintas=" + numEspeciesDistintas + ", guia=" + guia + '}';
     }
 
 }
