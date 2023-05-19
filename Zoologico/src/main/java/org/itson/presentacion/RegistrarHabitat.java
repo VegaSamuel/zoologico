@@ -4,6 +4,9 @@
  */
 package org.itson.presentacion;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  * Pantalla para registrar un hábitat
  * @author Samuel Vega
@@ -15,8 +18,26 @@ public class RegistrarHabitat extends javax.swing.JFrame {
      */
     public RegistrarHabitat() {
         initComponents();
+        centrarVentana();
     }
 
+    private void centrarVentana() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        Dimension frameSize = getSize();
+        
+        if(frameSize.height > screenSize.height) {
+            frameSize.height = screenSize.height;
+        }
+        
+        if(frameSize.width > screenSize.width) {
+            frameSize.width = screenSize.width;
+        }
+        
+        setLocation((screenSize.width - frameSize.width) / 2, 
+                    (screenSize.height - frameSize.height) / 2);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,7 +47,7 @@ public class RegistrarHabitat extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
