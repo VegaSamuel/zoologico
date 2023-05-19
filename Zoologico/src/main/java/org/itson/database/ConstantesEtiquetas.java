@@ -28,7 +28,7 @@ public class ConstantesEtiquetas {
     public final String ITINERARIOS = "itinerarios";
     //Habitats
     public final String CLIMA = "clima";
-    public final String VEGATACION = "tipoVegetacion";
+    public final String VEGETACION = "tipoVegetacion";
     public final String CONTINENTES = "continentes";
     //Itinerarios
     public final String DURACION = "duracion";

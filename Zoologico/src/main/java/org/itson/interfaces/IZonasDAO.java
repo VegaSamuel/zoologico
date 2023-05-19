@@ -11,7 +11,7 @@ import org.itson.dominio.Zonas;
  * Interfaz con los métodos DAO de zonas
  * @author Samuel Vega
  */
-public interface IZonas {
+public interface IZonasDAO {
     
     /**
      * Encuentra una zona por su id

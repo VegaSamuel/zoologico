@@ -5,30 +5,30 @@
 package org.itson.interfaces;
 
 import org.bson.types.ObjectId;
-import org.itson.dominio.Guias;
+import org.itson.dominio.Habitats;
 
 /**
- * Interfaz con los métodos DAO de guias
+ * Interfaz con los métodos DAO de cuidadores
  * @author Samuel Vega
  */
-public interface IGuias {
+public interface IHabitatsDAO {
     
     /**
-     * Encuentra un guia por su ID
+     * Encuentra un hábitat por su ID
      * @param id ID del cuidador
-     * @return Guia con ID coincidente
+     * @return Hábitat con ID coincidente
      */
-    Guias consultar(ObjectId id);
+    Habitats consultar(ObjectId id);
     
     /**
-     * Inserta un guia
-     * @param guia Guia a insertar
+     * Inserta un hábitat
+     * @param habitat Hábitat a insertar
      */
-    void insertar(Guias guia);
+    void insertar(Habitats habitat);
     
     /**
-     * Elimina un guia
-     * @param id ID del guia
+     * Elimina un hábitat
+     * @param id ID del hábitat
      */
     void eliminar(ObjectId id);
 }

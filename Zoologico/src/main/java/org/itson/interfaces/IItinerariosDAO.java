@@ -11,7 +11,7 @@ import org.itson.dominio.Itinerarios;
  * Interfaz con los métodos DAO de itinerarios
  * @author Samuel Vega
  */
-public interface IItinerarios {
+public interface IItinerariosDAO {
     
     /**
      * Encuentra un itinerario por su ID

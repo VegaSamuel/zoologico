@@ -79,7 +79,7 @@ public class EspeciesDAO implements IEspeciesDAO {
         DeleteResult result = db.getCollection("Especies").deleteOne(d);
         
         if(result.getDeletedCount() > 0) {
-            JOptionPane.showMessageDialog(null, "Cuidador eliminado existosamente.", "Eliminación existosa!!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Especie eliminado existosamente.", "Eliminación existosa!!", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
