@@ -4,6 +4,8 @@
  */
 package org.itson.main;
 
+
+import org.itson.control.Control;
 import org.itson.presentacion.MainWindow;
 
 /**
@@ -16,6 +18,10 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Control c = new Control();
+        
+        c.IngresarDatos();
+        
         MainWindow main = new MainWindow();
         
         main.setVisible(true);
