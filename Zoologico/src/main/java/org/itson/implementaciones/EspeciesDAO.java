@@ -14,6 +14,8 @@ import org.itson.database.ConexionDB;
 import org.itson.database.ConstantesEtiquetas;
 import org.itson.dominio.Cuidadores;
 import org.itson.dominio.Especies;
+import org.itson.dominio.Habitats;
+import org.itson.dominio.Zonas;
 import org.itson.interfaces.IEspeciesDAO;
 
 /**
@@ -40,6 +42,8 @@ public class EspeciesDAO implements IEspeciesDAO {
             especie.setNombre(d.getString(ce.NOMBRE));
             especie.setNombreCientifico(d.getString(ce.NOMBRE_CIENTIFICO));
             especie.setCuidador(new Cuidadores((Document) d.get(ce.CUIDADOR)));
+            especie.setHabitat(new Habitats((Document) d.get(ce.HABITAT)));
+            especie.setZona(new Zonas((Document) d.get(ce.ZONA)));
         }
         
         return especie;
