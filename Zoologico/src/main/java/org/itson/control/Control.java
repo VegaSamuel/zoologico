@@ -326,7 +326,7 @@ public class Control {
         
         eDAO.insertar(especie);
         
-        JOptionPane.showMessageDialog(frame, "Hábitat registrado correctamente.", "Registro completado.", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame, "Especie registrada correctamente. id: " + especie.getId(), "Registro completado.", JOptionPane.INFORMATION_MESSAGE);
         
         return true;
     }

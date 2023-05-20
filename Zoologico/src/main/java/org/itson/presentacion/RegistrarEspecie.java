@@ -7,6 +7,7 @@ package org.itson.presentacion;
 import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import org.itson.dominio.Cuidadores;
 import org.itson.dominio.Especies;
 import org.itson.dominio.Habitats;
@@ -24,7 +25,17 @@ public class RegistrarEspecie extends javax.swing.JDialog {
     private DefaultComboBoxModel<Zonas> listaZonas;
     private StringBuffer respuesta;
     
-    
+    /**
+     * Crea una ventana para registrar una especie
+     * @param parent Ventana que la solicita
+     * @param modal Definir si se enfoca o no esta ventana
+     * @param operacion Lo que se quiere hacer con la pantalla
+     * @param especie Especie sobre la que se actuará
+     * @param listaCuidadores Lista de cuidadores
+     * @param listaHabitats Lista de hábitats
+     * @param listaZonas Lista de zonas
+     * @param respuesta Respuesta de la ventana
+     */
     public RegistrarEspecie(java.awt.Frame parent, boolean modal, int operacion, Especies especie, DefaultComboBoxModel<Cuidadores> listaCuidadores, DefaultComboBoxModel<Habitats> listaHabitats, DefaultComboBoxModel<Zonas> listaZonas, StringBuffer respuesta) {
         super(parent, modal);
         this.operacion = operacion;
@@ -35,6 +46,11 @@ public class RegistrarEspecie extends javax.swing.JDialog {
         this.respuesta = respuesta;
         
         initComponents();
+        
+        if(operacion == ConstantesGUI.AGREGAR) {
+            txtNombre.setText(especie.getNombre());
+            txtNombre.setEditable(false);
+        }
         
         respuesta.append(ConstantesGUI.CANCELAR);
         centraCuadroDialogo(parent);
@@ -96,6 +112,11 @@ public class RegistrarEspecie extends javax.swing.JDialog {
         cbxZona.setModel(listaZonas);
 
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +189,23 @@ public class RegistrarEspecie extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if("".equals(this.txtNombreCientifico.getText())) {
+            JOptionPane.showMessageDialog(null, "Falta llenar el campo del nombre científico", "Nombre científico faltante", JOptionPane.ERROR_MESSAGE);
+        }else {
+            if(operacion == ConstantesGUI.AGREGAR) {
+                especie.setNombreCientifico(txtNombreCientifico.getText());
+                especie.setCuidador((Cuidadores) cbxCuidador.getSelectedItem());
+                especie.setHabitat((Habitats) cbxHabitat.getSelectedItem());
+                especie.setZona((Zonas) cbxZona.getSelectedItem());
+                
+                respuesta.delete(0, respuesta.length());
+                respuesta.append(ConstantesGUI.ACEPTAR);
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
