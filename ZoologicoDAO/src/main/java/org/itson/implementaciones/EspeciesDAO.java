@@ -63,9 +63,23 @@ public class EspeciesDAO implements IEspeciesDAO {
         
         d.append(ce.NOMBRE, especie.getNombre())
          .append(ce.NOMBRE_CIENTIFICO, especie.getNombreCientifico())
-         .append(ce.CUIDADOR, especie.getCuidador())
-         .append(ce.HABITAT, especie.getHabitat())
-         .append(ce.ZONA, especie.getZona());
+         .append(ce.CUIDADOR, new Document("_id", especie.getCuidador().getId())
+             .append(ce.NOMBRE, especie.getCuidador().getNombre())
+             .append(ce.DIRECCION, new Document(ce.CALLE, especie.getCuidador().getDireccion().getCalle())
+                 .append(ce.COLONIA, especie.getCuidador().getDireccion().getColonia())
+                 .append(ce.NUMERO_CASA, especie.getCuidador().getDireccion().getnCasa()))
+             .append(ce.TELEFONO, especie.getCuidador().getTelefono())
+             .append(ce.FECHA_INGRESO, especie.getCuidador().getFechaIngreso())
+             .append(ce.ESPECIES, especie.getCuidador().getEspecies()))
+         .append(ce.HABITAT, new Document("_id", especie.getHabitat().getId())
+             .append(ce.NOMBRE, especie.getHabitat().getNombre())
+             .append(ce.CLIMA, especie.getHabitat().getClima())
+             .append(ce.VEGETACION, especie.getHabitat().getTipoVegetacion())
+             .append(ce.CONTINENTES, especie.getHabitat().getContinente()))
+         .append(ce.ZONA, new Document("_id", especie.getZona().getId())
+             .append(ce.NOMBRE, especie.getZona().getNombre())
+             .append(ce.EXTENSION, especie.getZona().getExtension())
+             .append(ce.ESPECIES, especie.getZona().getEspecies()));
         
         db.getCollection("Especies").insertOne(d);
     }
