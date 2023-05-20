@@ -131,7 +131,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuOpcionRegistrarItinerarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpcionRegistrarItinerarioActionPerformed
         if(control.recuperarDatosRegistroItinerario(this)) {
-            
+            control.registrarItinerario(this);
         }
     }//GEN-LAST:event_menuOpcionRegistrarItinerarioActionPerformed
 

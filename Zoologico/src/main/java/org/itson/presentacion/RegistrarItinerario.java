@@ -5,37 +5,65 @@
 package org.itson.presentacion;
 
 import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Point;
+import javax.swing.DefaultComboBoxModel;
+import org.itson.dominio.Guias;
+import org.itson.dominio.Itinerarios;
+import org.itson.dominio.Zonas;
 
 /**
  * Pantalla para registrar un itinerario
  * @author Samuel Vega
  */
-public class RegistrarItinerario extends javax.swing.JFrame {
-
+public class RegistrarItinerario extends javax.swing.JDialog {
+    private int operacion;
+    private Itinerarios itinerario;
+    private DefaultComboBoxModel<Guias> listaGuias;
+    private DefaultComboBoxModel<Zonas> listaZonas;
+    private StringBuffer respuesta;
+    
     /**
-     * Creates new form RegistrarItinerario
+     * Crea una ventana para registrar una especie
+     * @param parent Ventana que la solicita
+     * @param modal Definir si se enfoca o no esta ventana
+     * @param operacion Lo que se quiere hacer con la pantalla
+     * @param itinerario Itinerario sobre el que se actuará
+     * @param listaGuias Lista de guías
+     * @param listaZonas Lista de zonas
+     * @param respuesta Respuesta de la ventana
      */
-    public RegistrarItinerario() {
+    public RegistrarItinerario(java.awt.Frame parent, boolean modal, int operacion, Itinerarios itinerario, DefaultComboBoxModel<Guias> listaGuias, DefaultComboBoxModel<Zonas> listaZonas, StringBuffer respuesta) {
+        super(parent, modal);
+        this.operacion = operacion;
+        this.itinerario = itinerario;
+        this.listaGuias = listaGuias;
+        this.listaZonas = listaZonas;
+        this.respuesta = respuesta;
+        
         initComponents();
-        centrarVentana();
+        
+        if(operacion == ConstantesGUI.AGREGAR) {
+            txtNombre.setText(itinerario.getNombre());
+            txtNombre.setEditable(false);
+        }
+        
+        respuesta.append(ConstantesGUI.CANCELAR);
+        centraCuadroDialogo(parent);
+        setVisible(true);
     }
 
-    private void centrarVentana() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    /**
+     * Centra la ventana conforme a la ventana que solicito esta ventana
+     * @param parent Ventana que solicito esta ventana
+     */
+    private void centraCuadroDialogo(java.awt.Frame parent){
+        Dimension frameSize = parent.getSize();
+        Point loc = parent.getLocation();
         
-        Dimension frameSize = getSize();
+        Dimension dlgSize = getPreferredSize();
         
-        if(frameSize.height > screenSize.height) {
-            frameSize.height = screenSize.height;
-        }
-        
-        if(frameSize.width > screenSize.width) {
-            frameSize.width = screenSize.width;
-        }
-        
-        setLocation((screenSize.width - frameSize.width) / 2, 
-                    (screenSize.height - frameSize.height) / 2);
+        setLocation( (frameSize.width - dlgSize.width) / 2 + loc.x,
+                     (frameSize.height - dlgSize.height) / 2 + loc.y);
     }
     
     /**
@@ -47,21 +75,141 @@ public class RegistrarItinerario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblDuracion = new javax.swing.JLabel();
+        lblLongitud = new javax.swing.JLabel();
+        lblNMaxVisitantes = new javax.swing.JLabel();
+        lblNEspecies = new javax.swing.JLabel();
+        lblGuia = new javax.swing.JLabel();
+        lblZona = new javax.swing.JLabel();
+        txtNMaxVisitantes = new javax.swing.JTextField();
+        txtLongitud = new javax.swing.JTextField();
+        txtDuración = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtNEspecies = new javax.swing.JTextField();
+        cbxGuia = new javax.swing.JComboBox<>();
+        cbxZona = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        jLabel1.setText("jLabel1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registrar Itinerario");
+
+        lblNombre.setText("Nombre");
+
+        lblDuracion.setText("Duración");
+
+        lblLongitud.setText("Longitud");
+
+        lblNMaxVisitantes.setText("N. Max. Visitantes");
+
+        lblNEspecies.setText("N. Especies");
+
+        lblGuia.setText("Guía");
+
+        lblZona.setText("Zona");
+
+        cbxGuia.setModel(listaGuias);
+
+        cbxZona.setModel(listaZonas);
+
+        jButton1.setText("Registrar");
+
+        jButton2.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNMaxVisitantes)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblNombre)
+                                .addComponent(lblDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblLongitud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblNEspecies)
+                            .addComponent(lblGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblZona, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNMaxVisitantes)
+                            .addComponent(txtLongitud)
+                            .addComponent(txtDuración)
+                            .addComponent(txtNombre)
+                            .addComponent(txtNEspecies)
+                            .addComponent(cbxGuia, 0, 110, Short.MAX_VALUE)
+                            .addComponent(cbxZona, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDuracion)
+                    .addComponent(txtDuración, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLongitud)
+                    .addComponent(txtLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNMaxVisitantes)
+                    .addComponent(txtNMaxVisitantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNEspecies)
+                    .addComponent(txtNEspecies, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGuia)
+                    .addComponent(cbxGuia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblZona)
+                    .addComponent(cbxZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Guias> cbxGuia;
+    private javax.swing.JComboBox<Zonas> cbxZona;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblDuracion;
+    private javax.swing.JLabel lblGuia;
+    private javax.swing.JLabel lblLongitud;
+    private javax.swing.JLabel lblNEspecies;
+    private javax.swing.JLabel lblNMaxVisitantes;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblZona;
+    private javax.swing.JTextField txtDuración;
+    private javax.swing.JTextField txtLongitud;
+    private javax.swing.JTextField txtNEspecies;
+    private javax.swing.JTextField txtNMaxVisitantes;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

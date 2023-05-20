@@ -27,15 +27,18 @@ import org.itson.implementaciones.CuidadoresDAO;
 import org.itson.implementaciones.EspeciesDAO;
 import org.itson.implementaciones.GuiasDAO;
 import org.itson.implementaciones.HabitatsDAO;
+import org.itson.implementaciones.ItinerariosDAO;
 import org.itson.implementaciones.ZonasDAO;
 import org.itson.interfaces.ICuidadoresDAO;
 import org.itson.interfaces.IEspeciesDAO;
 import org.itson.interfaces.IGuiasDAO;
 import org.itson.interfaces.IHabitatsDAO;
+import org.itson.interfaces.IItinerariosDAO;
 import org.itson.interfaces.IZonasDAO;
 import org.itson.presentacion.ConstantesGUI;
 import org.itson.presentacion.RegistrarEspecie;
 import org.itson.presentacion.RegistrarHabitat;
+import org.itson.presentacion.RegistrarItinerario;
 
 /**
  * Lleva un control de ciertos aspectos
@@ -393,5 +396,52 @@ public class Control {
         return true;
     }
     
-    
+    /**
+     * Registra un itinerario
+     * @param frame Ventana que lo solicita
+     * @return True si ya existe, False en caso contrario
+     */
+    public boolean registrarItinerario(JFrame frame) {
+        IItinerariosDAO iDAO = new ItinerariosDAO();
+        StringBuffer respuesta = new StringBuffer();
+        Itinerarios itinerario = new Itinerarios();
+        RegistrarItinerario registrarItinerario;
+        DefaultComboBoxModel<Guias> listaGuias; 
+        DefaultComboBoxModel<Zonas> listaZonas;
+        
+        String nombre = JOptionPane.showInputDialog(frame, "Nombre del itinerario: ", "Registrar itinerario", JOptionPane.QUESTION_MESSAGE);
+        
+        if(nombre == null)
+            return false;
+        
+        nombre = nombre.toLowerCase();
+        
+        Document d = db.getCollection("Guias").find(Filters.eq(ce.NOMBRE, nombre)).first();
+        
+        listaGuias = conv.comboBoxGuias(guias);
+        listaZonas = conv.comboBoxZonas(zonas);
+        
+        if(d != null) {
+            JOptionPane.showMessageDialog(frame, "Esta itinerario ya existe", "Itinerario existente!!", JOptionPane.ERROR_MESSAGE);
+            
+            itinerario = iDAO.consultar(d.getObjectId("_id"));
+            
+            registrarItinerario = new RegistrarItinerario(frame, true, ConstantesGUI.DESPLEGAR, itinerario, listaGuias, listaZonas, respuesta);
+            
+            return false;
+        }
+        
+        itinerario.setNombre(nombre);
+        
+        registrarItinerario = new RegistrarItinerario(frame, true, ConstantesGUI.AGREGAR, itinerario, listaGuias, listaZonas, respuesta);
+        
+        if(respuesta.substring(0).equals(ConstantesGUI.CANCELAR))
+            return false;
+        
+        iDAO.insertar(itinerario);
+        
+        JOptionPane.showMessageDialog(frame, "Itinerario registrado correctamente.", "Registro completado.", JOptionPane.INFORMATION_MESSAGE);
+        
+        return true;
+    }
 }
