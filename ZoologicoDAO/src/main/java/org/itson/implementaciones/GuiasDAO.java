@@ -42,7 +42,7 @@ public class GuiasDAO implements IGuiasDAO {
         if(d != null) {
             guia.setId(d.getObjectId("_id"));
             guia.setNombre(d.getString(ce.NOMBRE));
-            guia.setDireccion((Direccion) d.get(ce.DIRECCION));
+            guia.setDireccion(new Direccion((Document) d.get(ce.DIRECCION)));
             guia.setTelefono(d.getString(ce.TELEFONO));
             guia.setFechaIngreso(d.getDate(ce.FECHA_INGRESO));
             guia.setItinerarios((List<Itinerarios>) d.get(ce.ITINERARIOS));
@@ -61,7 +61,9 @@ public class GuiasDAO implements IGuiasDAO {
         Document d = new Document();
         
         d.append(ce.NOMBRE, guia.getNombre())
-         .append(ce.DIRECCION, guia.getDireccion())
+         .append(ce.DIRECCION, new Document(ce.CALLE, guia.getDireccion().getCalle())
+             .append(ce.COLONIA, guia.getDireccion().getColonia())
+             .append(ce.NUMERO_CASA, guia.getDireccion().getnCasa()))
          .append(ce.TELEFONO, guia.getTelefono())
          .append(ce.FECHA_INGRESO, guia.getFechaIngreso())
          .append(ce.ITINERARIOS, guia.getItinerarios());
