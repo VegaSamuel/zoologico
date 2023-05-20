@@ -127,21 +127,21 @@ public class Control {
             zDAO.insertar(zona4);
         }
         
-//        if(db.getCollection("Guias").countDocuments() == 0) {
-//            //Insertando guías
-//            List<Itinerarios> it = new ArrayList<>();
-//            Guias guia1 = new Guias("Pedro", new Direccion("Mates", "Ticas", "224B"), "6442547894", new Date(), it);
-//            Guias guia2 = new Guias("Kevin", new Direccion("Olas", "Los Maestros", "1864"), "6444789641", new Date(), it);
-//            Guias guia3 = new Guias("Antonio", new Direccion("Fanta", "Las Loqueras", "2147"), "6442476489", new Date(), it);
-//            Guias guia4 = new Guias("Sergio", new Direccion("Toca", "Las Palmeras", "3254"), "6441547894", new Date(), it);
-//            
-//            IGuiasDAO gDAO = new GuiasDAO();
-//            
-//            gDAO.insertar(guia1);
-//            gDAO.insertar(guia2);
-//            gDAO.insertar(guia3);
-//            gDAO.insertar(guia4);
-//        }
+        if(db.getCollection("Guias").countDocuments() == 0) {
+            //Insertando guías
+            List<Itinerarios> it = new ArrayList<>();
+            Guias guia1 = new Guias("Pedro", new Direccion("Mates", "Ticas", "224B"), "6442547894", new Date(), it);
+            Guias guia2 = new Guias("Kevin", new Direccion("Olas", "Los Maestros", "1864"), "6444789641", new Date(), it);
+            Guias guia3 = new Guias("Antonio", new Direccion("Fanta", "Las Loqueras", "2147"), "6442476489", new Date(), it);
+            Guias guia4 = new Guias("Sergio", new Direccion("Toca", "Las Palmeras", "3254"), "6441547894", new Date(), it);
+            
+            IGuiasDAO gDAO = new GuiasDAO();
+            
+            gDAO.insertar(guia1);
+            gDAO.insertar(guia2);
+            gDAO.insertar(guia3);
+            gDAO.insertar(guia4);
+        }
     }
     
     /**
