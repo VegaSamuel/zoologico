@@ -6,6 +6,8 @@ package org.itson.presentacion;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import org.itson.dominio.Guias;
 import org.itson.dominio.Itinerarios;
@@ -85,13 +87,13 @@ public class RegistrarItinerario extends javax.swing.JDialog {
         lblZona = new javax.swing.JLabel();
         txtNMaxVisitantes = new javax.swing.JTextField();
         txtLongitud = new javax.swing.JTextField();
-        txtDuración = new javax.swing.JTextField();
+        txtDuracion = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtNEspecies = new javax.swing.JTextField();
         cbxGuia = new javax.swing.JComboBox<>();
         cbxZona = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -116,9 +118,19 @@ public class RegistrarItinerario extends javax.swing.JDialog {
 
         cbxZona.setModel(listaZonas);
 
-        jButton1.setText("Registrar");
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,16 +153,16 @@ public class RegistrarItinerario extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNMaxVisitantes)
                             .addComponent(txtLongitud)
-                            .addComponent(txtDuración)
+                            .addComponent(txtDuracion)
                             .addComponent(txtNombre)
                             .addComponent(txtNEspecies)
                             .addComponent(cbxGuia, 0, 110, Short.MAX_VALUE)
                             .addComponent(cbxZona, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(btnRegistrar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,7 +175,7 @@ public class RegistrarItinerario extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDuracion)
-                    .addComponent(txtDuración, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLongitud)
@@ -186,18 +198,38 @@ public class RegistrarItinerario extends javax.swing.JDialog {
                     .addComponent(cbxZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnRegistrar)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if(operacion == ConstantesGUI.AGREGAR) {
+            itinerario.setDuracion(Integer.parseInt(txtDuracion.getText()));
+            itinerario.setLongitud(Double.parseDouble(txtLongitud.getText()));
+            itinerario.setMaxVisitanteAutorizados(Integer.parseInt(txtNMaxVisitantes.getText()));
+            itinerario.setNumEspeciesDistintas(Integer.parseInt(txtNEspecies.getText()));
+            itinerario.setGuia((Guias) cbxGuia.getSelectedItem());
+            itinerario.setZonas((List<Zonas>) Arrays.asList((Zonas) cbxZona.getSelectedItem()));
+        }
+        
+        respuesta.delete(0, respuesta.length());
+        respuesta.append(ConstantesGUI.ACEPTAR);
+        dispose();
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<Guias> cbxGuia;
     private javax.swing.JComboBox<Zonas> cbxZona;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblDuracion;
     private javax.swing.JLabel lblGuia;
@@ -206,7 +238,7 @@ public class RegistrarItinerario extends javax.swing.JDialog {
     private javax.swing.JLabel lblNMaxVisitantes;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblZona;
-    private javax.swing.JTextField txtDuración;
+    private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtLongitud;
     private javax.swing.JTextField txtNEspecies;
     private javax.swing.JTextField txtNMaxVisitantes;

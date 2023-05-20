@@ -15,6 +15,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.itson.database.ConexionDB;
 import org.itson.database.ConstantesEtiquetas;
+import org.itson.dominio.Direccion;
 import org.itson.dominio.Guias;
 import org.itson.dominio.Itinerarios;
 import org.itson.dominio.Zonas;
@@ -67,8 +68,18 @@ public class ItinerariosDAO implements IItinerariosDAO {
          .append(ce.LONGITUD, itinerario.getLongitud())
          .append(ce.VISITANTES, itinerario.getMaxVisitanteAutorizados())
          .append(ce.NESPECIES, itinerario.getNumEspeciesDistintas())
-         .append(ce.GUIA, itinerario.getGuia())
-         .append(ce.ZONAS, itinerario.getZonas());
+         .append(ce.GUIA, new Document("_id", itinerario.getGuia().getId())
+             .append(ce.NOMBRE, itinerario.getGuia().getNombre())
+             .append(ce.DIRECCION, new Document(ce.CALLE, itinerario.getGuia().getDireccion().getCalle())
+                 .append(ce.COLONIA, itinerario.getGuia().getDireccion().getColonia())
+                 .append(ce.NUMERO_CASA, itinerario.getGuia().getDireccion().getnCasa()))
+             .append(ce.TELEFONO, itinerario.getGuia().getTelefono())
+             .append(ce.FECHA_INGRESO, itinerario.getGuia().getFechaIngreso())
+             .append(ce.ITINERARIOS, itinerario.getGuia().getItinerarios()))
+         .append(ce.ZONAS, new Document("_id", itinerario.getZonas().get(0).getId())
+             .append(ce.NOMBRE, itinerario.getZonas().get(0).getNombre())
+             .append(ce.EXTENSION, itinerario.getZonas().get(0).getExtension())
+             .append(ce.ESPECIES, itinerario.getZonas().get(0).getEspecies()));
         
         db.getCollection("Itinerarios").insertOne(d);
     }
