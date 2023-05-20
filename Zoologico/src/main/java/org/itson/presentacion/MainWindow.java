@@ -79,6 +79,11 @@ public class MainWindow extends javax.swing.JFrame {
         menuOpciones.add(menuOpcionRegistrarEspecie);
 
         menuOpcionRegistrarItinerario.setText("Registrar Itinerario");
+        menuOpcionRegistrarItinerario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuOpcionRegistrarItinerarioActionPerformed(evt);
+            }
+        });
         menuOpciones.add(menuOpcionRegistrarItinerario);
         menuOpciones.add(jSeparator1);
 
@@ -123,6 +128,12 @@ public class MainWindow extends javax.swing.JFrame {
             control.registrarEspecie(this);
         }
     }//GEN-LAST:event_menuOpcionRegistrarEspecieActionPerformed
+
+    private void menuOpcionRegistrarItinerarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpcionRegistrarItinerarioActionPerformed
+        if(control.recuperarDatosRegistroItinerario(this)) {
+            
+        }
+    }//GEN-LAST:event_menuOpcionRegistrarItinerarioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;

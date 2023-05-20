@@ -19,14 +19,18 @@ import org.itson.database.ConstantesEtiquetas;
 import org.itson.dominio.Cuidadores;
 import org.itson.dominio.Direccion;
 import org.itson.dominio.Especies;
+import org.itson.dominio.Guias;
 import org.itson.dominio.Habitats;
+import org.itson.dominio.Itinerarios;
 import org.itson.dominio.Zonas;
 import org.itson.implementaciones.CuidadoresDAO;
 import org.itson.implementaciones.EspeciesDAO;
+import org.itson.implementaciones.GuiasDAO;
 import org.itson.implementaciones.HabitatsDAO;
 import org.itson.implementaciones.ZonasDAO;
 import org.itson.interfaces.ICuidadoresDAO;
 import org.itson.interfaces.IEspeciesDAO;
+import org.itson.interfaces.IGuiasDAO;
 import org.itson.interfaces.IHabitatsDAO;
 import org.itson.interfaces.IZonasDAO;
 import org.itson.presentacion.ConstantesGUI;
@@ -49,6 +53,7 @@ public class Control {
     List<Habitats> habitats = new ArrayList<>();
     List<Cuidadores> cuidadores = new ArrayList<>();
     List<Zonas> zonas = new ArrayList<>();
+    List<Guias> guias = new ArrayList<>();
     
     /**
      * Inserta datos en la base de datos
@@ -121,6 +126,22 @@ public class Control {
             zDAO.insertar(zona3);
             zDAO.insertar(zona4);
         }
+        
+//        if(db.getCollection("Guias").countDocuments() == 0) {
+//            //Insertando guías
+//            List<Itinerarios> it = new ArrayList<>();
+//            Guias guia1 = new Guias("Pedro", new Direccion("Mates", "Ticas", "224B"), "6442547894", new Date(), it);
+//            Guias guia2 = new Guias("Kevin", new Direccion("Olas", "Los Maestros", "1864"), "6444789641", new Date(), it);
+//            Guias guia3 = new Guias("Antonio", new Direccion("Fanta", "Las Loqueras", "2147"), "6442476489", new Date(), it);
+//            Guias guia4 = new Guias("Sergio", new Direccion("Toca", "Las Palmeras", "3254"), "6441547894", new Date(), it);
+//            
+//            IGuiasDAO gDAO = new GuiasDAO();
+//            
+//            gDAO.insertar(guia1);
+//            gDAO.insertar(guia2);
+//            gDAO.insertar(guia3);
+//            gDAO.insertar(guia4);
+//        }
     }
     
     /**
@@ -217,6 +238,47 @@ public class Control {
         //Verifica cuidadores
         if(cuidadores.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay ningún cuidador registrado en el sistema", "No hay cuidadores!!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        //Verifica zonas
+        if(zonas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay ninguna zona registrada en el sistema", "No hay zonas!!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Recupera los datos necesarios para registrar un itinerario
+     * @param frame Ventana que ocupa el método
+     * @return Verdadero si se pudo recuperar, Falso en caso contrario.
+     */
+    public boolean recuperarDatosRegistroItinerario(JFrame frame) {
+        //Recibe los datos desde la base de datos
+        FindIterable<Document> dg = db.getCollection("Guias").find();
+        FindIterable<Document> dz = db.getCollection("Zonas").find();
+        
+        IGuiasDAO gDAO = new GuiasDAO();
+        IZonasDAO zDAO = new ZonasDAO();
+        
+        //Llena las listas
+        if(guias.isEmpty()) {
+            for(Document document: dg) {
+                guias.add(gDAO.consultar(document.getObjectId("_id")));
+            }
+        }
+        
+        if(zonas.isEmpty()) {
+            for(Document document: dz) {
+                zonas.add(zDAO.consultar(document.getObjectId("_id")));
+            }
+        }
+        
+        //Verifica guias
+        if(guias.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay ningún guía registrado en el sistema", "No hay guias!!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         
@@ -330,4 +392,6 @@ public class Control {
         
         return true;
     }
+    
+    
 }
