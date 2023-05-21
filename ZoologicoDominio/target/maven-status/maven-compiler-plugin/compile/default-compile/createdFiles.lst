@@ -5,5 +5,6 @@ org\itson\dominio\Direccion.class
 org\itson\database\ConstantesEtiquetas.class
 org\itson\dominio\Zonas.class
 org\itson\dominio\Especies.class
+.netbeans_automatic_build
 org\itson\database\ConexionDB.class
 org\itson\dominio\Habitats.class
