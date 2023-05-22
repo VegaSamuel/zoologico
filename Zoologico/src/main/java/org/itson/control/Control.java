@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.bson.Document;
@@ -36,6 +37,7 @@ import org.itson.interfaces.IHabitatsDAO;
 import org.itson.interfaces.IItinerariosDAO;
 import org.itson.interfaces.IZonasDAO;
 import org.itson.presentacion.ConstantesGUI;
+import org.itson.presentacion.ListasContinentes;
 import org.itson.presentacion.RegistrarEspecie;
 import org.itson.presentacion.RegistrarHabitat;
 import org.itson.presentacion.RegistrarItinerario;
@@ -306,7 +308,6 @@ public class Control {
         RegistrarHabitat registrarHabitat;
         DefaultComboBoxModel<String> listaClimas;
         DefaultComboBoxModel<String> listaVegetacion;
-        DefaultComboBoxModel<String> listaContinentes;
         
         String nombre = JOptionPane.showInputDialog(frame, "Nombre del hábitat: ", "Registrar hábitat", JOptionPane.QUESTION_MESSAGE);
         
@@ -319,21 +320,20 @@ public class Control {
         
         listaClimas = conv.comboBoxClimas(climas);
         listaVegetacion = conv.comboBoxVegetacion(vegetacion);
-        listaContinentes = conv.comboBoxContinentes(continentes);
         
         if(d != null) {
             JOptionPane.showMessageDialog(frame, "Ese hábitat ya existe", "Hábitat existente!!", JOptionPane.ERROR_MESSAGE);
             
             habitat = hDAO.consultar(d.getObjectId("_id"));
             
-            registrarHabitat = new RegistrarHabitat(frame, true, ConstantesGUI.DESPLEGAR, habitat, listaClimas, listaVegetacion, listaContinentes, respuesta);
+            registrarHabitat = new RegistrarHabitat(frame, true, ConstantesGUI.DESPLEGAR, habitat, listaClimas, listaVegetacion, respuesta);
             
             return false;
         }
         
         habitat.setNombre(nombre);
         
-        registrarHabitat = new RegistrarHabitat(frame, true, ConstantesGUI.AGREGAR, habitat, listaClimas, listaVegetacion, listaContinentes, respuesta);
+        registrarHabitat = new RegistrarHabitat(frame, true, ConstantesGUI.AGREGAR, habitat, listaClimas, listaVegetacion, respuesta);
         
         if(respuesta.substring(0).equals(ConstantesGUI.CANCELAR))
             return false;
@@ -444,4 +444,23 @@ public class Control {
         
         return true;
     }
+    
+    /**
+     * Define los contientes de un hábitat
+     * @param frame Ventana que lo solicita
+     * @return Verdadero si se definieron, Falso en caso contrario
+     */
+    public boolean definirContinentes(JFrame frame) {
+        List<String> continenteshbt = new ArrayList<>();
+        ListasContinentes listasContinentes;
+        DefaultListModel<String> continentesDisponibles;
+        StringBuffer respuesta = new StringBuffer();
+        
+        continentesDisponibles = conv.listaContinentesDisponibles(continentes);
+        
+        listasContinentes = new ListasContinentes(frame, true, continenteshbt, continentesDisponibles, respuesta);
+        
+        return true;
+    }
+    
 }

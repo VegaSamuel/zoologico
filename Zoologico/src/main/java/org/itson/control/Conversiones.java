@@ -6,6 +6,7 @@ package org.itson.control;
 
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import org.itson.dominio.Cuidadores;
 import org.itson.dominio.Guias;
 import org.itson.dominio.Habitats;
@@ -37,19 +38,6 @@ public class Conversiones {
         if(listaVegetacion != null) {
             for(int i=0; i < listaVegetacion.size(); i++) {
                 defaultComboBoxModel.addElement(listaVegetacion.get(i));
-            }
-            return defaultComboBoxModel;
-        }
-        
-        return null;
-    }
-    
-    public DefaultComboBoxModel<String> comboBoxContinentes(List<String> listaContinentes) {
-        DefaultComboBoxModel<String> defaultComboBoxModel = new DefaultComboBoxModel();
-        
-        if(listaContinentes != null) {
-            for(int i=0; i < listaContinentes.size(); i++) {
-                defaultComboBoxModel.addElement(listaContinentes.get(i));
             }
             return defaultComboBoxModel;
         }
@@ -106,6 +94,19 @@ public class Conversiones {
             return defaultComboBoxModel;
         }
                 
+        return null;
+    }
+    
+    public DefaultListModel<String> listaContinentesDisponibles(List<String> listaDisponibles) {
+        DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+        
+        if(listaDisponibles != null) {
+            for(int i=0; i < listaDisponibles.size(); i++) {
+                defaultListModel.addElement(listaDisponibles.get(i));
+            }
+            return defaultListModel;
+        }
+        
         return null;
     }
 }
