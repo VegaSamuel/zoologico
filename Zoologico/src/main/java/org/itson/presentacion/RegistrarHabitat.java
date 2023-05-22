@@ -6,9 +6,9 @@ package org.itson.presentacion;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
-import org.itson.control.Control;
 import org.itson.dominio.Habitats;
 
 /**
@@ -16,11 +16,11 @@ import org.itson.dominio.Habitats;
  * @author Samuel Vega
  */
 public class RegistrarHabitat extends javax.swing.JDialog {
-    private Control control = new Control();
     private int operacion;
     private Habitats habitat;
     private DefaultComboBoxModel<String> listaClimas;
     private DefaultComboBoxModel<String> listaVegetacion;
+    private DefaultComboBoxModel<String> listaContinentes;
     private StringBuffer respuesta;
     
     /**
@@ -31,14 +31,16 @@ public class RegistrarHabitat extends javax.swing.JDialog {
      * @param habitat Hábitat sobre el que se actuará
      * @param listaClimas Lista de climas
      * @param listaVegetacion Lista de tipos de vegetación
+     * @param listaContinentes Lista de continentes
      * @param respuesta Respuesta de la ventana
      */
-    public RegistrarHabitat(java.awt.Frame parent, boolean modal, int operacion, Habitats habitat, DefaultComboBoxModel listaClimas, DefaultComboBoxModel listaVegetacion, StringBuffer respuesta) {
+    public RegistrarHabitat(java.awt.Frame parent, boolean modal, int operacion, Habitats habitat, DefaultComboBoxModel listaClimas, DefaultComboBoxModel listaVegetacion, DefaultComboBoxModel listaContinentes, StringBuffer respuesta) {
         super(parent, modal);
         this.operacion = operacion;
         this.habitat = habitat;
         this.listaClimas = listaClimas;
         this.listaVegetacion = listaVegetacion;
+        this.listaContinentes = listaContinentes;
         this.respuesta = respuesta;
         
         initComponents();
@@ -52,9 +54,11 @@ public class RegistrarHabitat extends javax.swing.JDialog {
             txtNombre.setText(habitat.getNombre());
             cbxClima.setSelectedItem(habitat.getClima());
             cbxVegetacion.setSelectedItem(habitat.getTipoVegetacion());
+            cbxContinentes.setSelectedItem(habitat.getContinente().get(0));
             txtNombre.setEditable(false);
             cbxClima.setEnabled(false);
             cbxVegetacion.setEnabled(false);
+            cbxContinentes.setEnabled(false);
             
             btnRegistrar.setEnabled(false);
             btnCancelar.setText("Volver");
@@ -94,10 +98,10 @@ public class RegistrarHabitat extends javax.swing.JDialog {
         lblContinentes = new javax.swing.JLabel();
         cbxVegetacion = new javax.swing.JComboBox<>();
         cbxClima = new javax.swing.JComboBox<>();
+        cbxContinentes = new javax.swing.JComboBox<>();
         btnRegistrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
-        btnContinentes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Hábitat");
@@ -114,6 +118,8 @@ public class RegistrarHabitat extends javax.swing.JDialog {
 
         cbxClima.setModel(listaClimas);
 
+        cbxContinentes.setModel(listaContinentes);
+
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,13 +134,6 @@ public class RegistrarHabitat extends javax.swing.JDialog {
             }
         });
 
-        btnContinentes.setText("...");
-        btnContinentes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnContinentesActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,28 +142,23 @@ public class RegistrarHabitat extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRegistrar)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblVegetacion)
                             .addComponent(lblNombre)
                             .addComponent(lblClima, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblContinentes))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbxVegetacion, 0, 118, Short.MAX_VALUE)
-                                    .addComponent(cbxClima, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtNombre))
-                                .addGap(0, 6, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnContinentes)
-                                .addGap(49, 49, 49))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxVegetacion, 0, 118, Short.MAX_VALUE)
+                            .addComponent(cbxClima, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxContinentes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNombre))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRegistrar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +178,7 @@ public class RegistrarHabitat extends javax.swing.JDialog {
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblContinentes)
-                    .addComponent(btnContinentes))
+                    .addComponent(cbxContinentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrar)
@@ -203,6 +197,7 @@ public class RegistrarHabitat extends javax.swing.JDialog {
         if(operacion == ConstantesGUI.AGREGAR) {
             habitat.setClima((String) cbxClima.getSelectedItem());
             habitat.setTipoVegetacion((String) cbxVegetacion.getSelectedItem());
+            habitat.setContinente((List<String>) Arrays.asList((String) cbxContinentes.getSelectedItem()));
         }
         
         respuesta.delete(0, respuesta.length());
@@ -210,17 +205,11 @@ public class RegistrarHabitat extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    private void btnContinentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinentesActionPerformed
-        if(control.recuperarDatosRegistroHabitat((JFrame) super.getParent())) {
-            control.definirContinentes((JFrame) super.getParent());
-        }
-    }//GEN-LAST:event_btnContinentesActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnContinentes;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cbxClima;
+    private javax.swing.JComboBox<String> cbxContinentes;
     private javax.swing.JComboBox<String> cbxVegetacion;
     private javax.swing.JLabel lblClima;
     private javax.swing.JLabel lblContinentes;
