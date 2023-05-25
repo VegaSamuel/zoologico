@@ -6,16 +6,18 @@ package org.itson.presentacion;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import org.itson.dominio.Habitats;
 
 /**
  *
  * @author Samuel Vega
  */
 public class ListasContinentes extends javax.swing.JDialog {
-    private List<String> continentes;
+    private Habitats habitat;
     private DefaultListModel<String> continentesDisponibles;
     private DefaultListModel<String> continentesSeleccionados = new DefaultListModel<String>();
     private StringBuffer respuesta;
@@ -24,13 +26,14 @@ public class ListasContinentes extends javax.swing.JDialog {
      * Crea una ventana para eligir los continentes de un hábitat
      * @param parent Ventana que la solicita
      * @param modal Definir si se enfoca o no esta ventana
+     * @param habitat Hábitat al cual sumarle los continentes
      * @param continentes Lista de continentes sobre la que se actuará
      * @param continentesDisponibles Lista de continentes disponibles para el hábitat
      * @param respuesta Respuesta de la ventana
      */
-    public ListasContinentes(java.awt.Frame parent, boolean modal, List<String> continentes, DefaultListModel<String> continentesDisponibles, StringBuffer respuesta) {
+    public ListasContinentes(java.awt.Frame parent, boolean modal, Habitats habitat, List<String> continentes, DefaultListModel<String> continentesDisponibles, StringBuffer respuesta) {
         super(parent, modal);
-        this.continentes = continentes;
+        this.habitat = habitat;
         this.continentesDisponibles = continentesDisponibles;
         this.respuesta = respuesta;
 
@@ -160,7 +163,7 @@ public class ListasContinentes extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRight)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
                 .addContainerGap())
@@ -191,7 +194,17 @@ public class ListasContinentes extends javax.swing.JDialog {
         if(continentesSeleccionados.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay continentes seleccionados.", "Continentes no seleccionados!!", JOptionPane.ERROR_MESSAGE);
         }else {
+            List<String> continentes = new ArrayList<>();
             
+            for(int i = 0; i < continentesSeleccionados.getSize(); i++) {
+                continentes.add(continentesSeleccionados.get(i));
+            }
+            
+            habitat.setContinente(continentes);
+            
+            respuesta.delete(0, respuesta.length());
+            respuesta.append(ConstantesGUI.ACEPTAR);
+            dispose();
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 

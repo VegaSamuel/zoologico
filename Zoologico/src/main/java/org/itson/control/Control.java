@@ -448,17 +448,22 @@ public class Control {
     /**
      * Define los contientes de un hábitat
      * @param frame Ventana que lo solicita
+     * @param habitat Habitat al cual se le sumaran los continentes
+     * @param continentesh Continentes del hábitat
      * @return Verdadero si se definieron, Falso en caso contrario
      */
-    public boolean definirContinentes(JFrame frame) {
-        List<String> continenteshbt = new ArrayList<>();
+    public boolean definirContinentes(JFrame frame, Habitats habitat, List<String> continentesh) {
+        List<String> continenteshbt = continentesh;
         ListasContinentes listasContinentes;
         DefaultListModel<String> continentesDisponibles;
         StringBuffer respuesta = new StringBuffer();
         
         continentesDisponibles = conv.listaContinentesDisponibles(continentes);
         
-        listasContinentes = new ListasContinentes(frame, true, continenteshbt, continentesDisponibles, respuesta);
+        listasContinentes = new ListasContinentes(frame, true, habitat, continenteshbt, continentesDisponibles, respuesta);
+        
+        if(respuesta.substring(0).equals(ConstantesGUI.CANCELAR))
+            return false;
         
         return true;
     }

@@ -6,6 +6,7 @@ package org.itson.presentacion;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import org.itson.control.Control;
@@ -212,7 +213,7 @@ public class RegistrarHabitat extends javax.swing.JDialog {
 
     private void btnContinentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinentesActionPerformed
         if(control.recuperarDatosRegistroHabitat((JFrame) super.getParent())) {
-            control.definirContinentes((JFrame) super.getParent());
+            control.definirContinentes((JFrame) super.getParent(), habitat, habitat.getContinente());
         }
     }//GEN-LAST:event_btnContinentesActionPerformed
 
