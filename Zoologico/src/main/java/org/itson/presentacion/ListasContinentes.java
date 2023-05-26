@@ -36,6 +36,14 @@ public class ListasContinentes extends javax.swing.JDialog {
         this.habitat = habitat;
         this.continentesDisponibles = continentesDisponibles;
         this.respuesta = respuesta;
+        
+        if(continentes != null) {
+            continentesSeleccionados.addAll(continentes);
+            
+            for(String s: continentes) {
+                continentesDisponibles.removeElement(s);
+            }
+        }
 
         initComponents();
         
