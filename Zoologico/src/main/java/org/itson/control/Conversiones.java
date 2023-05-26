@@ -24,6 +24,10 @@ public class Conversiones {
         
         if(listaClimas != null) {
             for(int i=0; i < listaClimas.size(); i++) {
+                if(i == 0) {
+                    defaultComboBoxModel.addElement("--------------");
+                }
+                
                 defaultComboBoxModel.addElement(listaClimas.get(i));
             }
             return defaultComboBoxModel;
@@ -37,6 +41,10 @@ public class Conversiones {
         
         if(listaVegetacion != null) {
             for(int i=0; i < listaVegetacion.size(); i++) {
+                if(i == 0) {
+                    defaultComboBoxModel.addElement("--------------");
+                }
+                
                 defaultComboBoxModel.addElement(listaVegetacion.get(i));
             }
             return defaultComboBoxModel;

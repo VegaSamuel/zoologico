@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.itson.control.Control;
 import org.itson.dominio.Habitats;
 
@@ -201,14 +202,20 @@ public class RegistrarHabitat extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        if(operacion == ConstantesGUI.AGREGAR) {
+        if(cbxClima.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado un tipo de clima", "Tipo de clima sin seleccionar!!", JOptionPane.ERROR_MESSAGE);
+        }else if(cbxVegetacion.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado un tipo de vegetación", "Tipo de vegetación sin seleccionar!!", JOptionPane.ERROR_MESSAGE);
+        }else if(habitat.getContinente() == null) {
+            JOptionPane.showMessageDialog(null, "No hay ningún continente seleccionado", "Continentes sin seleccionar!!", JOptionPane.ERROR_MESSAGE);
+        }else {
             habitat.setClima((String) cbxClima.getSelectedItem());
             habitat.setTipoVegetacion((String) cbxVegetacion.getSelectedItem());
+            
+            respuesta.delete(0, respuesta.length());
+            respuesta.append(ConstantesGUI.ACEPTAR);
+            dispose();
         }
-        
-        respuesta.delete(0, respuesta.length());
-        respuesta.append(ConstantesGUI.ACEPTAR);
-        dispose();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnContinentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinentesActionPerformed
